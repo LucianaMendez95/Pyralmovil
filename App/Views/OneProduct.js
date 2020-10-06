@@ -67,7 +67,7 @@ export default function OneProduct(props){
             <View style={{flexDirection:'row', justifyContent:'space-around'}}>
                 <Picker
                     selectedValue={true}
-                    style={{height: 50, width: 150, alignSelf:'center', backgroundColor:'whitesmoke', borderRadius:5}}
+                    style={{height: 50, width: 250, alignSelf:'center', backgroundColor:'whitesmoke',marginBottom:10}}
                     onValueChange={(itemValue) => setProducts({...products,size: itemValue})
                 }>
                     {(product?.variants?.filter(vari => vari.color === products.color))?.map((vari,index) =>( 
@@ -77,7 +77,7 @@ export default function OneProduct(props){
             <Button
                 title="   Add To Cart"
                 onPress={() =>  UpdateCart(products)}
-                buttonStyle={{width:170, borderRadius:6, alignSelf:'center',backgroundColor:"black"}}
+                buttonStyle={{width:250, borderRadius:6, alignSelf:'center',backgroundColor:"black"}}
                 icon={<Icon  name="shopping-bag" type='font-awesome' size={15} color="#FFFFFF"/>}
             />                
             <ScrollProducts {...props}/>
