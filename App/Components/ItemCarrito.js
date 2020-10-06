@@ -26,9 +26,7 @@ const ItemCarrito = (props) => {
             })
         }
     }
-console.log(props)
     const url = props.product.variants[0].photo.replace(LOCAL_HOST,IMAGE)
-    console.log()
     return (
             <View style={styles.unelEmentoCarrito}>
                 <ImageShop source={{uri:`${url}`}} width={100} height={80} margin={1}/>
@@ -42,7 +40,10 @@ console.log(props)
 
                 </View>
 
-                <EvilIcons name="trash" size={35} color="black" />
+                <View  style={styles.tachoyprecio}>
+                    <EvilIcons name="trash" size={35} color="black" />
+                    <Text style={styles.precio}>${props.product.price}</Text>
+                </View>
             </View>
     )
 
@@ -94,8 +95,14 @@ const styles = StyleSheet.create({
        marginRight:6,
        marginLeft:6,
        paddingTop:4
+   },
+   tachoyprecio:{
+    display:"flex",
+    justifyContent:"space-around",
+   },
+   precio:{
+       marginTop:20
    }
-  
 })
 
 export default ItemCarrito 
