@@ -3,8 +3,7 @@ import {StyleSheet,Share , Text, View, ScrollView,TouchableOpacity} from "react-
 import {LOCAL_HOST, IMAGE} from '../Constants/index'
 import styled from 'styled-components'
 import ScrollProducts from '../Components/ScrollProducts'
-import { Rating, Button} from 'react-native-elements';
-import { Icon } from 'react-native-elements'
+import { Rating, Icon, Button} from 'react-native-elements';
 import { UpdateCart } from '../Constants/funcionesCarrito'
 import {Picker} from '@react-native-community/picker';
 
@@ -32,7 +31,7 @@ export default function OneProduct(props){
             size: product.variants[0].size, color: product.variants[0].color    
     })
     const image = products.photo.replace(LOCAL_HOST,IMAGE)
-    const rating = product.stars/product.reviews
+    const rating = (product.reviews === 0)? product.stars:product.stars/product.reviews
     return(
         <ScrollView style={{alignSelf:'center',backgroundColor:'white'}}>
             <View style={{flexDirection:'row' , justifyContent:'space-between'}}>

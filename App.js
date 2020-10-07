@@ -4,6 +4,7 @@ import { View, Text, StyleSheet } from 'react-native';
 import { MaterialCommunityIcons } from '@expo/vector-icons'; 
 import { Button, Overlay } from 'react-native-elements';
 import Tab from './App/Nagivator/TabV'
+<<<<<<< HEAD
 import ItemCarrito from './App/Components/ItemCarrito';
 import {getValue} from './App/Constants/FuncAsyncStorage'
 import { ScrollView } from 'react-native-gesture-handler';
@@ -11,9 +12,14 @@ import Checkout from './App/Components/Checkout';
 import Payment from './App/Components/Payment'
 import Cartelfinish from './App/Components/Cartelfinish'
 
+=======
+import Carrito from './App/Components/Carrito'
+import {getValue, seveKeyValue} from './App/Constants/FuncAsyncStorage'
+>>>>>>> 55a18afefaca646d21ba523bd32547606eccd609
 
 
 export default function App() {
+<<<<<<< HEAD
    
     const [listProduct, setListProduct ] = useState([])
     useEffect(() => {
@@ -159,3 +165,12 @@ const styles = StyleSheet.create({
 })
 
 
+=======
+    cartAndListProducts() 
+    return (<>
+        <Tab/>
+        <Carrito/>
+    </>);
+}
+
+>>>>>>> 55a18afefaca646d21ba523bd32547606eccd609

@@ -27,7 +27,7 @@ const Product = (props) => {
                     <Text>{props?.product.price}</Text>
                 </View>
                 <ContainerColors>
-                    {variantsAux.map(variant => <ImageShopChica key={variant.stock} color={colors[variant.color]} />)}
+                    {variantsAux.map((variant,index) => <ImageShopChica key={index} color={colors[variant.color]} />)}
                 </ContainerColors>
             </FotosChicas>
         </Arcticulo>
