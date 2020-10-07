@@ -1,5 +1,5 @@
 import { StatusBar } from 'expo-status-bar';
-import React from 'react';
+import React, {useEffect} from 'react';
 import Tab from './App/Nagivator/TabV'
 import Carrito from './App/Components/Carrito'
 import {getValue, seveKeyValue} from './App/Constants/FuncAsyncStorage'
@@ -12,10 +12,11 @@ const cartAndListProducts = () => {
 } 
 
 export default function App() {
-    cartAndListProducts() 
+    useEffect(()=>{
+        cartAndListProducts()
+    },[])
     return (<>
         <Tab/>
         <Carrito/>
     </>);
 }
-

@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import { Text, View, Image } from 'react-native';
+import { Text, View, Image ,TouchableOpacity} from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createDrawerNavigator ,
     DrawerContentScrollView,
@@ -82,12 +82,11 @@ const TabsScreen = (props) => {
 
 const DrawerButton = (props) => {
     return(
-        <Button
-            title={`  ${props.title}`}
-            onPress={() =>  {props.navigate(props.url,{render:props.render, setRender:props.setRender})}}
-            buttonStyle={{width:250, borderRadius:6, alignSelf:'center',backgroundColor:"#587984"}}
-            icon={<Icon  name={props.icono} type='font-awesome' size={25} color="#E6EFF1"/>}
-        />                
+        <TouchableOpacity style={{width:'95%',alignSelf:'center', borderRadius:6,backgroundColor:"whitesmoke", flexDirection:'row' }}
+            onPress={() =>  {props.navigate(props.url,{render:props.render, setRender:props.setRender})}}>
+            <Icon  name={props.icono} type='font-awesome' size={25} color="#111111"/> 
+            <Text style={{color:'#111111',alignSelf:'center',fontWeight:'bold'}}>{`   ${props.title}`}    </Text>
+        </TouchableOpacity>
     )
 }
 
@@ -101,7 +100,7 @@ const CerrarSeccion = (props) => {
         <Button
             title={`  Log Aut`}
             onPress={() => log()}
-            buttonStyle={{width:150, borderRadius:6, alignSelf:'center',backgroundColor:"#587984"}}
+            buttonStyle={{width:300, borderRadius:6, alignSelf:'center',backgroundColor:"#587984"}}
             icon={<Icon  name={'sign-in'} type='font-awesome' size={25} color="#E6EFF1"/>}
         />                
     )
@@ -120,13 +119,14 @@ const CustomDrawerContent = (props) => {
         })
     },[render])
     return (<>
-        <View style={{backgroundColor:'#9EA6A9',flex:1}}>            
-            <View style={{backgroundColor:'#9EA6A9',flex:1}} >
-                <View style={{justifyContent:'center',backgroundColor:'#DAE4E7', borderRadius:60, marginBottom:30}}>   
-                    <ImageShop source={require('../Assets/botLogo.png')} height={200} width={200} margin={0}/>
-                    <Text style={{textAlign:'center'}}>{user?.firstName}</Text>
+        <View style={{backgroundColor:'whitesmoke',flex:1}}>            
+            <View style={{backgroundColor:'whitesmoke',flex:1}} >
+                <View style={{justifyContent:'center',paddingTop:50,backgroundColor:'whitesmoke', borderRadius:60, marginBottom:30}}>  
+                    {/*<ImageShop source={require('../Assets/botLogo.png')} height={200} width={200} margin={0}/>
+                        <Text style={{textAlign:'center'}}>{user?.firstName}</Text>*/}
+                    <Text style={{color:'black',fontSize:60}} >Pyral</Text>       
                 </View>
-                <View  style={{flex:0.55,justifyContent:'space-between'}}>            
+                <View  style={{flex:0.44,justifyContent:'space-between'}}>            
                     <DrawerButton title={"Home"} url={"Home"} icono={"home"} navigate={props.navigation.navigate}/>
                     { user === null && <DrawerButton title={"LogIn"} url={"LogIn"} 
                         render={render} setRender={setRender} icono={"sign-in"} p navigate={props.navigation.navigate}/>}
@@ -138,7 +138,7 @@ const CustomDrawerContent = (props) => {
             </View>       
             </View>
             <View style={{width:'100%',justifyContent:'center', 
-                    flex:0.1, backgroundColor:'#A9C4CD', borderTopEndRadius:40, borderTopLeftRadius:40}}>
+                    flex:0.1, backgroundColor:'whitesmoke', borderTopEndRadius:40, borderTopLeftRadius:40}}>
                   { user !== null && <CerrarSeccion render={render} setRender={setRender}/>}
             </View>    
         </View>            
@@ -159,5 +159,4 @@ export default function TabV() {
         </NavigationContainer>
     );
 }
-
 

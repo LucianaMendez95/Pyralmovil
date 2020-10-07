@@ -27,7 +27,7 @@ const onShare = async (product) => {
 export default function OneProduct(props){
     const product = props.route.params.item
     const [products, setProducts] = useState({photo: product.variants[0].photo,
-            title: product.title, quantity:1, _id: product._id,
+            title: product.title, quantity:1, _id: product._id, price:product.price,
             size: product.variants[0].size, color: product.variants[0].color    
     })
     const image = products.photo.replace(LOCAL_HOST,IMAGE)
