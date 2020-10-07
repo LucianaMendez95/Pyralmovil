@@ -23,7 +23,11 @@ export default function Adress(props){
         alert("Your information was sent")
      }
 
+     const [changeadress, setchangeadress] = useState(false);
 
+     const checkout =()=>{
+        setchangeadress(!changeadress);
+     }
 
 
     return(
@@ -39,8 +43,10 @@ export default function Adress(props){
                     </View>               
                 </View>
 
-                <View>
-                    <Text style={styles.Titulo}>Add your contact information</Text>
+                <ButtonPers onPress={checkout} style={[styles.Logout, {alignSelf:'center', width: 180, height:30, marginTop:30}]} tam={50} color={'#DBEBF0'}><Text style={{alignSelf:"center"}}>Add or chance adress</Text></ButtonPers>
+           {changeadress
+           
+               ? <><View>
                     <View style={styles.inputsyselect}>
                         <View>  
                             <Picker
@@ -86,6 +92,10 @@ export default function Adress(props){
                     </View>
                  </View>
                  <ButtonPers onPress={sendContact} style={[styles.Logout, {alignSelf:'center', width: 130, height:30, marginTop:30}]} tam={50} color={'#DBEBF0'}><Text style={{alignSelf:"center"}}>Send information</Text></ButtonPers>
+            </>
+             :<></>
+                }
+           
             </ScrollView>
     )
 } 

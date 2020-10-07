@@ -24,7 +24,11 @@ const ItemCarrito = (props) => {
                             <Entypo name="plus" size={24} color="black" onPress={() => updateQuantityProduct(1)} />
                     </View>
                 </View>
-                <EvilIcons name="trash" size={35} color="black" />
+
+                <View  style={styles.tachoyprecio}>
+                    <EvilIcons name="trash" size={35} color="black" />
+                    <Text style={styles.precio}>${props.product.price}</Text>
+                </View>
             </View>
     )
 }
@@ -74,8 +78,14 @@ const styles = StyleSheet.create({
        marginRight:6,
        marginLeft:6,
        paddingTop:4
+   },
+   tachoyprecio:{
+    display:"flex",
+    justifyContent:"space-around",
+   },
+   precio:{
+       marginTop:20
    }
-  
 })
 
 export default ItemCarrito 
