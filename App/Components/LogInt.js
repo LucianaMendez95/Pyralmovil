@@ -3,21 +3,21 @@ import {View, Text, CheckBox, ImageBackground, Button, StyleSheet, TextInput} fr
 import styled from 'styled-components'
 import axios from 'axios'
 import {API} from '../Constants/index'
+import { seveKeyValue } from '../Constants/FuncAsyncStorage'
 
 
-const  LogInt = ({navigation}) => {
-    const [mail, setMail] = React.useState("")
-    const [pass, setPass] = React.useState("")
+const  LogInt = ({ navigation, route}) => {
+    const [logUser, setLogUser] = useState({mail: '',pass: ''})
     const image = {uri:'https:www.onlygfx.com/wp-content/uploads/2017/07/paint-texture-black-and-white-3.jpeg'}
     const sendInfo = async() => {
-        const logUser = {
-            mail:mail,
-            pass:pass
-        }
         const response = await axios.post(`${API}/user/login`, logUser)
+        const {contact, firstName, lastName, mail, rating, rol, token} = response.data
         if (!response.data.success) {
             alert('Incorrect mail or password')
         } else {
+            const user = {contact, firstName, lastName, mail, rating, rol, token}
+            seveKeyValue('user',user,true)
+            route.params.setRender(!route.params.render)
             alert('Welcome')
             navigation.navigate('Home')
         }
@@ -34,7 +34,7 @@ const  LogInt = ({navigation}) => {
 				keyboardType= 'email-address'
 				placeholder="Write your mail here"
 				placeholderTextColor="#ffffffa9"
-				onChangeText={(val) => setMail(val)}
+				onChangeText={(val) => setLogUser({...logUser,mail:val})}
 			/>      
 
                <TextInput
@@ -42,7 +42,7 @@ const  LogInt = ({navigation}) => {
 				secureTextEntry = {true}
 				placeholder="Write your password here"
                 placeholderTextColor="#ffffffa9"
-                onChangeText={(val)=> setPass(val)}
+                onChangeText={(val)=> setLogUser({...logUser,pass:val})}
 			/>
               
               
@@ -55,7 +55,7 @@ const  LogInt = ({navigation}) => {
                     </View>
                     <Text style={{alignSelf:'center', color:'#41A6C4'}}>Forgot password</Text>
                 </ContainerInfo>   
-                <ButtonPers tam={50} color={'#DBEBF0'}>
+                    <ButtonPers tam={50} color={'#DBEBF0'} onPress={() => sendInfo()}>
                     <Text style={{alignSelf:'center'}} onPress={sendInfo}  >Log in </Text>
                 </ButtonPers>    
                 <ButtonPers tam={30} color={'#DBEBF0'}>

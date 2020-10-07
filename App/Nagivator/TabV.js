@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, {useState, useEffect} from 'react';
 import { Text, View, Image } from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createDrawerNavigator ,
@@ -18,7 +18,7 @@ import FAQs from '../Views/FAQs';
 import About from '../Views/About';
 import styled from 'styled-components'
 import {Icon, Button} from 'react-native-elements';
-
+import { getValue, removeKey } from '../Constants/FuncAsyncStorage'
 
 const Container = styled.View`
     flex: 1;
@@ -84,41 +84,62 @@ const DrawerButton = (props) => {
     return(
         <Button
             title={`  ${props.title}`}
-            onPress={() =>  {props.navigate(props.url)}}
+            onPress={() =>  {props.navigate(props.url,{render:props.render, setRender:props.setRender})}}
             buttonStyle={{width:250, borderRadius:6, alignSelf:'center',backgroundColor:"#587984"}}
             icon={<Icon  name={props.icono} type='font-awesome' size={25} color="#E6EFF1"/>}
         />                
     )
 }
 
-const CerrarSeccion = () => {
+const CerrarSeccion = (props) => {
+    const log = () => {
+        removeKey('user')
+        props.setRender(!props.render)
+    }
+    
     return(
         <Button
             title={`  Log Aut`}
-            onPress={() => {}}
+            onPress={() => log()}
             buttonStyle={{width:150, borderRadius:6, alignSelf:'center',backgroundColor:"#587984"}}
             icon={<Icon  name={'sign-in'} type='font-awesome' size={25} color="#E6EFF1"/>}
         />                
     )
 }
 
-const CustomDrawerContent = (props) => { 
+const CustomDrawerContent = (props) => {
+    const [user, setUser] = useState({})
+    const [render, setRender] = useState(true)
+    useEffect(() => {
+        getValue('user', true)        
+        .then(userP => {
+            if(userP === null){
+                setUser(userP)}
+            else{
+                setUser({...userP})}
+        })
+    },[render])
     return (<>
         <View style={{backgroundColor:'#9EA6A9',flex:1}}>            
             <View style={{backgroundColor:'#9EA6A9',flex:1}} >
                 <View style={{justifyContent:'center',backgroundColor:'#DAE4E7', borderRadius:60, marginBottom:30}}>   
                     <ImageShop source={require('../Assets/botLogo.png')} height={200} width={200} margin={0}/>
+                    <Text style={{textAlign:'center'}}>{user?.firstName}</Text>
                 </View>
                 <View  style={{flex:0.55,justifyContent:'space-between'}}>            
                     <DrawerButton title={"Home"} url={"Home"} icono={"home"} navigate={props.navigation.navigate}/>
-                    <DrawerButton title={"LogIn"} url={"LogIn"} icono={"sign-in"} navigate={props.navigation.navigate}/>
-                    <DrawerButton title={"SignUp"} url={"SignUp"} icono={"user-plus"} navigate={props.navigation.navigate}/>
-                    <DrawerButton title={"Profile"} url={"Profile"} icono={"user"} navigate={props.navigation.navigate}/>
+                    { user === null && <DrawerButton title={"LogIn"} url={"LogIn"} 
+                        render={render} setRender={setRender} icono={"sign-in"} p navigate={props.navigation.navigate}/>}
+                    {user === null && <DrawerButton title={"SignUp"} url={"SignUp"} 
+                        icono={"user-plus"} navigate={props.navigation.navigate}/>}
+                    {user !== null && <DrawerButton title={"Profile"} url={"Profile"} 
+                            icono={"user"} navigate={props.navigation.navigate}/>}
                     <DrawerButton title={"FAQs"} url={"FAQs"} icono={"question-circle"} navigate={props.navigation.navigate}/>
-                </View>       
+            </View>       
             </View>
-            <View style={{width:'100%',justifyContent:'center', flex:0.1, backgroundColor:'#A9C4CD', borderTopEndRadius:40, borderTopLeftRadius:40}}>
-                    <CerrarSeccion/>        
+            <View style={{width:'100%',justifyContent:'center', 
+                    flex:0.1, backgroundColor:'#A9C4CD', borderTopEndRadius:40, borderTopLeftRadius:40}}>
+                  { user !== null && <CerrarSeccion render={render} setRender={setRender}/>}
             </View>    
         </View>            
     </>)
