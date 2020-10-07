@@ -36,7 +36,6 @@ export default function Payment(props) {
             </View>
 
              <Picker
-                    mode='dropdown'
                     selectedValue={paymentType}
                     style={{height: 50, width: 100, alignSelf:'center', marginBottom:20}}
                     onValueChange={(itemValue) => setpaymentType(itemValue)
@@ -44,7 +43,7 @@ export default function Payment(props) {
                         <Picker.Item key={1} label="Cash" value="Cash"/>
                         <Picker.Item key={2} label="Card" value="Card"/>
              </Picker>   
-             
+
          {paymentType === "Card"
          ? <View style={styles.card}>
                 <CreditCardDisplay
