@@ -8,31 +8,48 @@ import ItemCarrito from './App/Components/ItemCarrito';
 import {getValue} from './App/Constants/FuncAsyncStorage'
 import { ScrollView } from 'react-native-gesture-handler';
 import Checkout from './App/Components/Checkout';
+import Payment from './App/Components/Payment'
+import Cartelfinish from './App/Components/Cartelfinish'
 
 
 
 export default function App() {
    
-
-    const [visible, setVisible] = useState(false);
-
-    const toggleOverlay = () => {
-      setVisible(!visible);
-    };
-
-    const [adress, setadress] = useState(false);
-
-    const checkout =()=>{
-        setadress(!adress);
-    }
- 
-const [listProduct, setListProduct ] = useState([])
+    const [listProduct, setListProduct ] = useState([])
     useEffect(() => {
         getValue('products',true)
         .then((products => setListProduct(products)))
     },[])
 
+    const [visible, setVisible] = useState(false);
 
+    const toggleOverlay = () => {
+      setVisible(!visible);
+      setcartell(false)
+      setPayy(false);
+      setadresss(false);
+    };
+
+    const [adresss, setadresss] = useState(false);
+
+    const checkout =()=>{
+        setadresss(!adresss);
+    }
+    
+
+    const [Payy, setPayy] = useState(false);
+
+    const Paymethod =()=>{
+        setPayy(!Payy);
+    }
+
+    const [cartell, setcartell] = useState(false);
+
+    const cartel =()=>{
+        setcartell(!cartell);
+    }
+    
+ 
  
 const precioTotal = () =>{
   let precioTotal = 0
@@ -49,7 +66,7 @@ const precioTotal = () =>{
             <MaterialCommunityIcons style={styles.cart} onPress={toggleOverlay} name="cart-outline" size={24} color="black" />
             <Overlay  isVisible={visible} onBackdropPress={toggleOverlay} >
              
-             {!adress 
+             {!adresss
               ?  <View style={styles.ropaDelCarrito}>
                     <ScrollView alignSelf='center' style={{marginTop:5}}>
                        {listProduct.map((prod,index) =><ItemCarrito product={prod} key={index}/>)}
@@ -62,8 +79,31 @@ const precioTotal = () =>{
                  </View>
 
             :<View> 
-                <Checkout listProduct={listProduct} preciototal={precioTotal()}/>
-                <Text onPress={checkout} style={styles.butButton}>Back</Text>
+                {!Payy
+                ?<Checkout listProduct={listProduct} preciototal={precioTotal()}/>
+                : <View>
+                   {!cartell
+                   ?<Payment preciototal={precioTotal()}/>
+                   :<Cartelfinish/> 
+                    }
+                    
+                 </View>
+                
+                }
+                <View style={styles.botones}>
+                  {!cartell
+                    ?<View style={styles.botones}>
+                        {!Payy
+                            ? <Text onPress={checkout} style={styles.butButton}>Back</Text>
+                            :<></>}
+                            <Text onPress={Paymethod} style={styles.butButton}>{!Payy ? "Next" :"Back"}</Text>
+                            {Payy 
+                            ? <Text onPress={cartel} style={styles.butButton}>Finish</Text>
+                            :<></>}
+                    </View>
+                    :<Text onPress={toggleOverlay} style={styles.butButton}>Close</Text>}
+                </View>
+
              </View>} 
           </Overlay>    
        </View>
@@ -104,12 +144,17 @@ const styles = StyleSheet.create({
         fontWeight:"bold",
         backgroundColor: "white",
         borderRadius:5,
-        marginRight:100,
-        marginLeft:100,
+        marginRight:40,
+        marginLeft:40,
         marginBottom:5,
         paddingTop:4,
         paddingBottom:4,
         marginTop: 5
+   },
+   botones:{
+       display:"flex",
+       flexDirection:"row",
+       justifyContent:"space-around"
    }
 })
 
