@@ -1,30 +1,16 @@
-import React,{useState, useEffect} from 'react';
-import { EvilIcons, AntDesign, Entypo, Ionicons } from '@expo/vector-icons'; 
-import { View, Text, Button, StyleSheet } from 'react-native';
+import React from 'react';
+import { EvilIcons, Entypo} from '@expo/vector-icons'; 
+import { View, Text, StyleSheet } from 'react-native';
 import {LOCAL_HOST, IMAGE} from '../Constants/index'
-import { MaterialIcons } from '@expo/vector-icons'; 
+import { MaterialIcons } from '@expo/vector-icons';
+import {UpdateCart} from '../Constants/funcionesCarrito'
 import styled from 'styled-components'
 
 
 const ItemCarrito = (props) => {
-   
-
-    const  [cantidad, setcantidad] = useState(0)
-    console.log(cantidad)
-   const sumar = () => {
-    setcantidad({
-        ...cantidad,
-        cantidad: cantidad +1
-    })
-
-   }
-   const restar = () => {
-       if(cantidad > 0){
-            setcantidad({
-                ...cantidad,
-                cantidad: cantidad -1
-            })
-        }
+    const updateQuantityProduct = (quantity) => {
+        UpdateCart(props.product, quantity)
+        props.setUpdate(!props.update)
     }
     const url = props.product.variants[0].photo.replace(LOCAL_HOST,IMAGE)
     return (
@@ -33,21 +19,14 @@ const ItemCarrito = (props) => {
                 <View style={styles.tituloCantidad}>
                     <Text style={styles.titulo}>{props.product.title}</Text> 
                     <View style={styles.cantidad}>
-                        <MaterialIcons name="remove" size={24} color="black" onPress={sumar}/>
-                        <Text style={styles.numerocantidad}>{cantidad}</Text>
-                        <Entypo name="plus" size={24} color="black" onPress={restar} />
+                        <MaterialIcons name="remove" size={24} color="black" onPress={() => updateQuantityProduct(-1)}/>
+                        <Text style={styles.numerocantidad}>{props.product.quantity}</Text>
+                            <Entypo name="plus" size={24} color="black" onPress={() => updateQuantityProduct(1)} />
                     </View>
-
                 </View>
-
-                <View  style={styles.tachoyprecio}>
-                    <EvilIcons name="trash" size={35} color="black" />
-                    <Text style={styles.precio}>${props.product.price}</Text>
-                </View>
+                <EvilIcons name="trash" size={35} color="black" />
             </View>
     )
-
-
 }
             
 const ImageShop = styled.Image`

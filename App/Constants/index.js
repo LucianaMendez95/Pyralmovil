@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 
-export const API = "http://6c165973032b.ngrok.io"
+export const API = "http://6c165973032b.ngrok.io/api"
 
 export const colors = {
     Wine: '#44282D',

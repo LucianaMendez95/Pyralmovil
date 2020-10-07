@@ -3,8 +3,9 @@ import {StyleSheet,Share , Text, View, ScrollView,TouchableOpacity} from "react-
 import {LOCAL_HOST, IMAGE} from '../Constants/index'
 import styled from 'styled-components'
 import ScrollProducts from '../Components/ScrollProducts'
-import { Rating, AirbnbRating, Button} from 'react-native-elements';
+import { Rating, Button} from 'react-native-elements';
 import { Icon } from 'react-native-elements'
+import { UpdateCart } from '../Constants/funcionesCarrito'
 import {Picker} from '@react-native-community/picker';
 
 const onShare = async (product) => {
@@ -26,53 +27,59 @@ const onShare = async (product) => {
 
 export default function OneProduct(props){
     const product = props.route.params.item
-    const [products, setProducts] = useState({photo:product.variants[0].photo,
-            stock:product.variants[0].stock, size: '',color:product.variants[0].color    
+    const [products, setProducts] = useState({photo: product.variants[0].photo,
+            title: product.title, quantity:1, _id: product._id,
+            size: product.variants[0].size, color: product.variants[0].color    
     })
     const image = products.photo.replace(LOCAL_HOST,IMAGE)
     const rating = product.stars/product.reviews
     return(
         <ScrollView style={{alignSelf:'center',backgroundColor:'white'}}>
-            <Text style={styles.title} >{product.title}</Text>
-            <View style={{flexDirection:'row', alignItems:'center'}}>
-                <ScrollView style={{width:60, height:185 , alignSelf:'center', marginLeft:10}}>
+            <View style={{flexDirection:'row' , justifyContent:'space-between'}}>
+                <View style={{alignSelf:'center'}}>
+                    <Text style={{fontWeight:'bold', fontSize:20,marginLeft : 20}}
+                        >{product.title}
+                    </Text>
+                    <Rating startingValue={rating} 
+                        style={{width:125}} 
+                        imageSize={17} type='custom' ratingColor="#060B0C" 
+                    />
+                </View>
+                <Icon raised name='share-alt'  type='font-awesome' style={{alignSelf:'center'}}
+                    color='#080808' onPress={() => onShare(product.title)} 
+                />
+            </View>            
+            <View style={{ alignItems:'center'}}>
+                <ImageShop source={{uri:image}} margin={0} width={310} height={350}/>
+                <ScrollView horizontal={true} 
+                        style={{width:150, height:50}}>
                     {product.variants.map((variant,index) => (
                     <TouchableOpacity key={index} 
-                        style={variant.photo === products.photo? {borderColor:'#17272C',borderWidth:1,borderRadius: 10}:{}} 
+                        style={{width:50}}
                         onPress={() =>{
                             return setProducts({...products,...variant}) }}>
                             <ImageShop source={{uri:variant.photo.replace(LOCAL_HOST,IMAGE)}}  
                                 width={50} margin={0} height={60} key={variant.photo}/>
                         </TouchableOpacity>))}
                 </ScrollView>             
-                <ImageShop source={{uri:image}} margin={30} width={250} height={290}/>
             </View>
-            <Rating startingValue={rating} 
-                style={{alignSelf:'center',width:200}} 
-                imageSize={17} type='custom' ratingColor="#060B0C" 
-            />
             <Text style={styles.title}>{`$ ${product.price}`}</Text>
             <View style={{flexDirection:'row', justifyContent:'space-around'}}>
                 <Picker
-                    mode='dropdown'
-                    selectedValue={products.size}
-                    style={{height: 50, width: 100, alignSelf:'center'}}
+                    selectedValue={true}
+                    style={{height: 50, width: 250, alignSelf:'center', backgroundColor:'whitesmoke',marginBottom:10}}
                     onValueChange={(itemValue) => setProducts({...products,size: itemValue})
                 }>
-                    {(product?.variants?.filter(vari => vari.color === products.color))?.map(vari =>( 
-                        <Picker.Item key label={vari.size} value={vari.size}/>))}
+                    {(product?.variants?.filter(vari => vari.color === products.color))?.map((vari,index) =>( 
+                    <Picker.Item key={index} label={`Size ${vari.size}`} value={vari.size}/>))}
                 </Picker>        
-                <Icon raised name='share-alt' type='font-awesome' style={{alignSelf:'center'}}
-                    color='#080808' onPress={() => onShare(product.title)} 
-                />
             </View>
-            <View>
-                <Button
-                    title="   Comprar"
-                    buttonStyle={{width:150, borderRadius:6, alignSelf:'center',backgroundColor:"#9DA1A3"}}
-                    icon={<Icon  name="shopping-bag" type='font-awesome' size={15} color="black"/>}
-                />
-            </View>                
+            <Button
+                title="   Add To Cart"
+                onPress={() =>  UpdateCart(products)}
+                buttonStyle={{width:250, borderRadius:6, alignSelf:'center',backgroundColor:"black"}}
+                icon={<Icon  name="shopping-bag" type='font-awesome' size={15} color="#FFFFFF"/>}
+            />                
             <ScrollProducts {...props}/>
         </ScrollView>
 
@@ -83,7 +90,6 @@ export default function OneProduct(props){
 const ImageShop = styled.Image`
     height: ${props => `${props.height}px`};
     width: ${props => `${props.width}px`};
-    resizeMode: contain;
     alignSelf:center;
     borderRadius: 5px;
     marginBottom: ${props => `${props.margin}px`};
@@ -98,10 +104,10 @@ const styles = StyleSheet.create({
         marginTop: 50,
     },
     title:{
-        fontWeight:'bold',
-        fontSize:20,
+        fontWeight:'500',
+        fontSize:30,
         alignSelf:'center',
-        marginBottom : 20
+        marginBottom : 5
     },
     imagen:{
         height: 200,
