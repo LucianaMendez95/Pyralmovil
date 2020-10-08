@@ -15,13 +15,14 @@ const ItemCarrito = (props) => {
     const url = props.product.photo.replace(LOCAL_HOST,IMAGE)
     return (
             <View style={styles.unelEmentoCarrito}>
-                <ImageShop source={{uri:`${url}`}} width={100} height={80} margin={1}/>
-                <View style={styles.tituloCantidad}>
+                <ImageShop source={{uri:`${url}`}} width={78} height={80} margin={0}/>
+                <View style={{...styles.tituloCantidad,width:'40%'}}>
                     <Text style={styles.titulo}>{props.product.title}</Text> 
+                    <Text style={{}}>{`Size ${props.product.size}`}</Text>
                     <View style={styles.cantidad}>
-                        <MaterialIcons name="remove" size={24} color="black" onPress={() => updateQuantityProduct(-1)}/>
-                        <Text style={styles.numerocantidad}>{props.product.quantity}</Text>
-                            <Entypo name="plus" size={24} color="black" onPress={() => updateQuantityProduct(1)} />
+                        <MaterialIcons style={{alignSelf:'center',color:'gray'}} name="remove" size={20} color="black" onPress={() => updateQuantityProduct(-1)}/>
+                        <Text style={{fontSize:18,alignSelf:'center'}}>{props.product.quantity}</Text>
+                        <Entypo name="plus" style={{alignSelf:'center', color:'gray' }} size={20} color="black" onPress={() => updateQuantityProduct(1)} />
                     </View>
                 </View>
 
@@ -36,7 +37,6 @@ const ItemCarrito = (props) => {
 const ImageShop = styled.Image`
     height: ${props => `${props.height}px`};
     width: ${props => `${props.width}px`};
-    resizeMode: contain;
     alignSelf:center;
     borderRadius: 5px;
     marginBottom: ${props => `${props.margin}px`};
@@ -46,17 +46,16 @@ const ImageShop = styled.Image`
 const styles = StyleSheet.create({
     unelEmentoCarrito:{
         width: 270,
-        display:"flex",
         flexDirection: "row",
         justifyContent: "space-between",
         alignItems:"center",
         backgroundColor:"white",
-        borderBottomColor: "black",
+        borderBottomColor: "whitesmoke",
         borderBottomWidth:1,
-        paddingBottom:5,
-        paddingTop:5,
-        paddingRight:10,
-        paddingLeft:10,
+        paddingBottom:0,
+        paddingTop:0,
+        paddingRight:0,
+        paddingLeft:0,
 
    },
    titulo:{
@@ -64,15 +63,11 @@ const styles = StyleSheet.create({
    },
 
    tituloCantidad:{
-    display:"flex",
-    justifyContent:"center",
-    alignItems:"center"
-
    },
    cantidad:{
        display:"flex",
        flexDirection: "row",
-       marginTop: 25
+       marginTop: 18
    },
    numerocantidad:{
        marginRight:6,

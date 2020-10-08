@@ -1,4 +1,4 @@
-import {StyleSheet, Text, View, Button, TextInput, ScrollView} from "react-native"
+import {StyleSheet, Text, View, Button, TextInput, ScrollView, TouchableOpacity} from "react-native"
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components'
 import {API} from '../Constants/index'
@@ -42,8 +42,11 @@ export default function Adress(props){
                         <Text>Phone number:</Text>
                     </View>               
                 </View>
-
-                <ButtonPers onPress={checkout} style={[styles.Logout, {alignSelf:'center', width: 180, height:30, marginTop:30}]} tam={50} color={'#DBEBF0'}><Text style={{alignSelf:"center"}}>Add or chance adress</Text></ButtonPers>
+                <ButtonPers onPress={checkout} 
+                    style={[styles.Logout, {alignSelf:'center', width: 180, height:30, 
+                    marginTop:30}]} tam={50} color={'black'}><Text style={{alignSelf:"center",color:'white'}}>
+                        Add or chance adress</Text>
+                </ButtonPers>
            {changeadress
            
                ? <><View>
@@ -91,7 +94,7 @@ export default function Adress(props){
                         </View>
                     </View>
                  </View>
-                 <ButtonPers onPress={sendContact} style={[styles.Logout, {alignSelf:'center', width: 130, height:30, marginTop:30}]} tam={50} color={'#DBEBF0'}><Text style={{alignSelf:"center"}}>Send information</Text></ButtonPers>
+                 <TouchableOpacity style={styles.butButton} onPress={sendContact} style={[styles.Logout, {alignSelf:'center', width: 130, height:30, marginTop:30}]} tam={50} color={'white'}><Text style={{alignSelf:"center"}}>Send information</Text></TouchableOpacity>
             </>
              :<></>
                 }
@@ -131,13 +134,25 @@ const styles = StyleSheet.create({
         marginTop:  10,
         backgroundColor: "#999999",
        },
+       butButton:{
+        backgroundColor: "black",
+        borderRadius:5,
+        marginRight:40,
+        marginLeft:40,
+        marginBottom:5,
+        paddingTop:4,
+        height:45,
+        paddingBottom:4,
+        marginTop: 5,
+        justifyContent:'center',
+   },
 })
 
 const ButtonPers = styled.TouchableOpacity`
     width: 200px;
     height:  40px;
     alignSelf: center;
-    borderRadius: 10px;
+    borderRadius: 3px;
     flexDirection:row;
     backgroundColor: ${props => props.color};
     justifyContent:center;
