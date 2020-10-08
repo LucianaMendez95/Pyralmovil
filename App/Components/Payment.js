@@ -97,7 +97,7 @@ export default function Payment(props) {
 const styles = StyleSheet.create({
    
     ropaDelCarrito:{
-        backgroundColor:'#F3F7F8',
+        backgroundColor:'white',
         height: 500,
         width: 300,
         borderRadius:15,

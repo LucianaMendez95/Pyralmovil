@@ -5,7 +5,7 @@ import { MaterialCommunityIcons } from '@expo/vector-icons';
 import {Overlay, Avatar, Badge, Icon, withBadge } from 'react-native-elements';
 import ItemCarrito from './ItemCarrito';
 import {getValue} from '../Constants/FuncAsyncStorage'
-import { ScrollView } from 'react-native-gesture-handler';
+import { ScrollView, TouchableOpacity } from 'react-native-gesture-handler';
 import Checkout from './Checkout';
 import Payment from './Payment'
 import Cartelfinish from './Cartelfinish'
@@ -72,7 +72,10 @@ export default function Carrito(){
                         <Text style={styles.Textprecio}>Total</Text>
                         <Text style={styles.Textprecio}>${precioTotal()}</Text>
                     </View>
-                    <Text onPress={checkout} style={styles.butButton}>Buy</Text>
+                    <TouchableOpacity style={styles.butButton}>    
+                        <Text onPress={() => checkout()}  
+                            style={{color:'white',fontSize:20,fontWeight:'bold', textAlign:'center'}} >Buy</Text>
+                    </TouchableOpacity>        
                  </View>
 
             :<View> 
@@ -89,16 +92,16 @@ export default function Carrito(){
                 }
                 <View style={styles.botones}>
                   {!cartell
-                    ?<View style={styles.botones}>
+                    ?<View style={{justifyContent:'space-around',width:'70%' ,flexDirection:'row'}}>
                         {!Payy
-                            ? <Text onPress={checkout} style={styles.butButton}>Back</Text>
+                            ? <Text onPress={checkout} style={styles.button}>Back</Text>
                             :<></>}
-                            <Text onPress={Paymethod} style={styles.butButton}>{!Payy ? "Next" :"Back"}</Text>
+                            <Text onPress={Paymethod} style={styles.button}>{!Payy ? "Next" :"Back"}</Text>
                             {Payy 
-                            ? <Text onPress={cartel} style={styles.butButton}>Finish</Text>
+                            ? <Text onPress={cartel} style={styles.button}>Finish</Text>
                             :<></>}
                     </View>
-                    :<Text onPress={toggleOverlay} style={styles.butButton}>Close</Text>}
+                    :<Text onPress={toggleOverlay} style={styles.button}>Close</Text>}
                 </View>
 
              </View>} 
@@ -113,9 +116,16 @@ const styles = StyleSheet.create({
         position: 'absolute', 
         right:   10,
         bottom: 690,
-   },
+    },
+    button:{
+        color:'white',
+        backgroundColor:'#111111',
+        padding:5,
+        borderRadius:2,
+        
+    },    
     ropaDelCarrito:{
-        backgroundColor:'#F3F7F8',
+        backgroundColor:'white',
         height: 500,
         width: 300,
         borderRadius:15,
@@ -137,21 +147,20 @@ const styles = StyleSheet.create({
 
    },
    butButton:{
-        color:"black",
-        textAlign:"center",
-        fontWeight:"bold",
-        backgroundColor: "white",
+        backgroundColor: "#111111",
         borderRadius:5,
         marginRight:40,
         marginLeft:40,
         marginBottom:5,
         paddingTop:4,
+        height:45,
         paddingBottom:4,
-        marginTop: 5
+        marginTop: 5,
+        justifyContent:'center',
    },
    botones:{
        display:"flex",
        flexDirection:"row",
-       justifyContent:"space-around"
+        justifyContent:"space-around",
    }
 })

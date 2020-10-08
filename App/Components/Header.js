@@ -1,26 +1,19 @@
 import React from 'react'
 import styled from "styled-components"
+import Carrito from '../Components/Carrito'
 import { StatusBar, StyleSheet } from "react-native";
+import {Icon} from 'react-native-elements';
 
 export default function Header(props) {
     return (
-        <Container>
-            <Img condicion={false} source={require('../Assets/botLogo.png')} />
-            <Img condicion={false} source={require('../Assets/cari.png')} />
+        <Container style={{backgroundColor:'red'}}>
+            <Icon name={bars} type='font-awesome' size={30} color="#111111"/> 
+            <Text>PYRAL</Text>
+            <Carrito/>        
             <StatusBar hidden={true} />
         </Container>
     );
 }
-
-const Img = styled.Image`
-    alignSelf: center;
-    resizeMode: contain; 
-    width: ${props => props.condicion? '150px':'30px'};
-    height: ${props => props.condicion? '150px':'30px'};
-    marginLeft: ${props => props.condicion? '10px':'0px'};
-    marginEnd: ${props => props.condicion? '0px':'15px'};
-`;
-
 const Container = styled.View`
     flexDirection: row;
     borderRadius: 5px;

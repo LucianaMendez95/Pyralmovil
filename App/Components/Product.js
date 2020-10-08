@@ -24,10 +24,26 @@ const Product = (props) => {
             <FotosChicas>
                 <View style={{ alignSelf: 'center' }}>
                     <Text>{props?.product.title}</Text>
-                    <Text>{props?.product.price}</Text>
+                    <Text>{`$ ${props?.product.price}`}</Text>
                 </View>
                 <ContainerColors>
-                    {variantsAux.map((variant,index) => <ImageShopChica key={index} color={colors[variant.color]} />)}
+                    {variantsAux.map((variant,index) => <ImageShopChica key={index} style={{ backgroundColor: 
+                        `${variant.color === 'Wine' ? '#44282D' :
+                                variant.color === 'Black' ? '#111111' :
+                                    variant.color === 'DarkGrey' ? '#34343D' :
+                                        variant.color === 'White' ? 'whitesmoke' :
+                                            variant.color === 'Blush' ? '##EFC6B4' :
+                                                variant.color === 'Flint' ? '#C2B1C1' :
+                                                    variant.color === 'Honeycomb' ? '#C98E2A' :
+                                                        variant.color === 'Paloma' ? '#F2BBBE' :
+                                                            variant.color === 'Salt' ? '#ECE9E2' :
+                                                                variant.color === 'Sage' ? '#737B7D' :
+                                                                    variant.color === 'Anchor' ? '#4B4545' :
+                                                                        variant.color === 'Red Rum' ? '#774A47' :
+                                                                            variant.color === 'Golden Harvest' ? '#E6B968' :
+                                                                                variant.color === 'Military Moss' ? '#695530' :
+                                                                                    variant.color === 'Grey' ? '#303B4F' : ''}`
+                        }} />)}
                 </ContainerColors>
             </FotosChicas>
         </Arcticulo>
@@ -50,7 +66,6 @@ const ContainerColors = styled.View`
 
 const ImageShopChica = styled.View`
     alignSelf: center;
-    backgroundColor:${props => `${props.color}`};
     marginRight: 2px;
     borderRadius: 100px;
     width: 15px;
@@ -75,7 +90,7 @@ const Arcticulo = styled.View`
     color: black;
     margin: 10px;
     display:flex;
-    borderRadius: 15px;        
+    borderRadius: 5px;        
     flexDirection: column;
     padding: 2px;
 `;

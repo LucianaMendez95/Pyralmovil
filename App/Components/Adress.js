@@ -42,8 +42,11 @@ export default function Adress(props){
                         <Text>Phone number:</Text>
                     </View>               
                 </View>
-
-                <ButtonPers onPress={checkout} style={[styles.Logout, {alignSelf:'center', width: 180, height:30, marginTop:30}]} tam={50} color={'#DBEBF0'}><Text style={{alignSelf:"center"}}>Add or chance adress</Text></ButtonPers>
+                <ButtonPers onPress={checkout} 
+                    style={[styles.Logout, {alignSelf:'center', width: 180, height:30, 
+                    marginTop:30}]} tam={50} color={'black'}><Text style={{alignSelf:"center",color:'white'}}>
+                        Add or chance adress</Text>
+                </ButtonPers>
            {changeadress
            
                ? <><View>
@@ -137,7 +140,7 @@ const ButtonPers = styled.TouchableOpacity`
     width: 200px;
     height:  40px;
     alignSelf: center;
-    borderRadius: 10px;
+    borderRadius: 3px;
     flexDirection:row;
     backgroundColor: ${props => props.color};
     justifyContent:center;

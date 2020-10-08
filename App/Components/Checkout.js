@@ -2,7 +2,8 @@ import React, { useState, useEffect } from 'react';
 import styled from "styled-components"
 import { View, Text, Button, StyleSheet, ScrollView } from 'react-native';
 import Adress from './Adress';
-
+import {LOCAL_HOST, IMAGE} from '../Constants/index'
+import { Icon } from 'react-native-elements'
 
 export default function Checkout(props) {
     const [paises, setpaises] = React.useState([])
@@ -23,10 +24,15 @@ export default function Checkout(props) {
           <ScrollView alignSelf='center' style={{marginTop:5}}>
           <Text style={styles.titulo}>Purchase Summary</Text>
             {props.listProduct.map((prod,index) => {
-                return(
+                var url = prod.photo.replace(LOCAL_HOST,IMAGE)
+                return(    
                     <View style={styles.titleyprice} key={index}>
-                        <Text style={styles.prodtitle}>{prod.title}</Text>
-                        <Text style={styles.price}>{prod.price}</Text>
+                        <ImageShop source={{uri:url}} width={70} height={70} margin={0} />
+                        <View>
+                            <Text style={styles.prodtitle}>{`${prod.title} (${prod.quantity})`}</Text>    
+                            <Text style={styles.prodtitle}>{`Size ${prod.size}`}</Text>
+                        </View>
+                        <Text style={styles.price}>{`$${prod.price}`}</Text>
                     </View>)
             })}
 
@@ -45,10 +51,19 @@ export default function Checkout(props) {
     );
 }
 
+const ImageShop = styled.Image`
+    height: ${props => `${props.height}px`};
+    width: ${props => `${props.width}px`};
+    alignSelf:center;
+    borderRadius: 5px;
+    marginBottom: ${props => `${props.margin}px`};
+`;
+
+
 const styles = StyleSheet.create({
    
     ropaDelCarrito:{
-        backgroundColor:'#F3F7F8',
+        backgroundColor:'white',
         height: 500,
         width: 300,
         borderRadius:15,

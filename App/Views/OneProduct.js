@@ -30,6 +30,7 @@ export default function OneProduct(props){
             title: product.title, quantity:1, _id: product._id, price:product.price,
             size: product.variants[0].size, color: product.variants[0].color    
     })
+
     const image = products.photo.replace(LOCAL_HOST,IMAGE)
     const rating = (product.reviews === 0)? product.stars:product.stars/product.reviews
     return(
@@ -63,15 +64,14 @@ export default function OneProduct(props){
                 </ScrollView>             
             </View>
             <Text style={styles.title}>{`$ ${product.price}`}</Text>
-            <View style={{flexDirection:'row', justifyContent:'space-around'}}>
-                <Picker
-                    selectedValue={true}
-                    style={{height: 50, width: 250, alignSelf:'center', backgroundColor:'whitesmoke',marginBottom:10}}
-                    onValueChange={(itemValue) => setProducts({...products,size: itemValue})
-                }>
-                    {(product?.variants?.filter(vari => vari.color === products.color))?.map((vari,index) =>( 
-                    <Picker.Item key={index} label={`Size ${vari.size}`} value={vari.size}/>))}
-                </Picker>        
+            <Text style={{textAlign:'center'}}>{`Size  ${products.size}`}</Text>
+            <View style={{flexDirection:'row', justifyContent:'center'}}>
+                {(product?.variants?.filter(vari => vari.color === products.color))?.map((vari,index) =>( 
+                <TouchableOpacity  onPress={() => setProducts({...products,size:vari.size})} 
+                    key={index} label={`Size ${vari.size}`} 
+                    style={{width:30, height:30,borderWidth:1,justifyContent:'center', margin:1}} value={vari.size}>
+                    <Text style={{textAlign:'center'}}>{vari.size}</Text>
+                </TouchableOpacity>))}
             </View>
             <Button
                 title="   Add To Cart"
