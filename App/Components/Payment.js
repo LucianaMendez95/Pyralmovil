@@ -59,28 +59,28 @@ export default function Payment(props) {
                    <TextInput 
                     style={styles.TextInput}
                     placeholder="Numero. 16 digitos"
-                    placeholderTextColor="white"
+                    placeholderTextColor="#111111"
                     onFocus={() => inputHandler(false, 'flip')} 
                     onChangeText={(val) => inputHandler(parseInt(val), 'number')} />
 
                   <TextInput 
                     style={styles.TextInput}
                     placeholder="Nombre. Ej: Juan Perez"
-                    placeholderTextColor="white"
+                    placeholderTextColor="#111111"
                     onFocus={() => inputHandler(false, 'flip')} 
                     onChangeText={(val) => inputHandler(val, 'name')} />
 
                   <TextInput 
                     style={styles.TextInput}
                     placeholder="Fecha de expiracion. MM/AA"
-                    placeholderTextColor="white"
+                    placeholderTextColor="#111111"
                     onFocus={() => inputHandler(false, 'flip')}
                     onChangeText={(val) => inputHandler(val, 'expiry')} />
 
                   <TextInput 
                     style={styles.TextInput}
                     placeholder="Codigo de seguridad"
-                    placeholderTextColor="white" 
+                    placeholderTextColor="#111111"
                     onFocus={() => inputHandler(true, 'flip')}
                     onChangeText={(val) => inputHandler(val, 'cvc')} />
                 </View> 
@@ -113,12 +113,15 @@ const styles = StyleSheet.create({
        alignItems:"center"
    },
    TextInput:{
+    borderColor: '#111111',
+    borderWidth: 2,
     width:  290,
     height: 40,
+    alignSelf: 'center',
     paddingLeft:10,
     borderRadius: 7,
     marginTop:  10,
-    backgroundColor: "#999999",
+    backgroundColor: "whitesmoke",
    },
    totalprice:{
     display:"flex",

@@ -57,7 +57,7 @@ const  LogInt = ({ navigation, route}) => {
                 <ButtonPers tam={20} color={'#111111'} onPress={() => navigation.navigate('SignUp')} style={{marginBottom:20}}>
                     <Text style={{alignSelf:'center',fontSize:18, color:'whitesmoke', fontWeight:'bold'}} >To Register</Text>
                 </ButtonPers>    
-            </View>v            
+            </View>            
         </View>
     );
 }

@@ -94,7 +94,7 @@ export default function Adress(props){
                 <ButtonPers onPress={checkout} 
                     style={[styles.Logout, {alignSelf:'center', width: 180, height:30, 
                     marginTop:30}]} tam={50} color={'black'}><Text style={{alignSelf:"center",color:'white'}}>
-                        Add or chance adress</Text>
+                        Add or change address</Text>
                 </ButtonPers>
            {changeadress
            
@@ -115,7 +115,7 @@ export default function Adress(props){
                                 <TextInput
                                 style={styles.TextInput}
                                 placeholder="Write your city here"
-                                placeholderTextColor="#ffffffa9" 
+                                placeholderTextColor="#111111"
                                 onChangeText={(val) => setcity(val)}
                             />          
 
@@ -123,7 +123,7 @@ export default function Adress(props){
                                 <TextInput
                                 style={styles.TextInput}
                                 placeholder="Write your address here"
-                                placeholderTextColor="#ffffffa9" 
+                                placeholderTextColor="#111111"
                                 onChangeText={(val) => setadress(val)}
                             />               
                             
@@ -134,7 +134,7 @@ export default function Adress(props){
                             <TextInput
                                     style={styles.TextInput}
                                     placeholder="Write your postalCode here"
-                                    placeholderTextColor="#ffffffa9" 
+                                    placeholderTextColor="#111111"
                                     onChangeText={(val) => setpostalCode(val)}
                                 />                 
 
@@ -142,13 +142,15 @@ export default function Adress(props){
                                     <TextInput
                                     style={styles.TextInput}
                                     placeholder="Write your phoneNumber here"
-                                    placeholderTextColor="#ffffffa9" 
+                                    placeholderTextColor="#111111" 
                                     onChangeText={(val) => setphoneNumber(val)}
                             />     
                         </View>
                     </View>
                  </View>
-                 <TouchableOpacity style={styles.butButton} onPress={sendContact} style={[styles.Logout, {alignSelf:'center', width: 130, height:30, marginTop:30}]} tam={50} color={'white'}><Text style={{alignSelf:"center"}}>Send information</Text></TouchableOpacity>
+                 <ButtonPers onPress={sendContact} tam={10} color={'#111111'} style={{marginBottom:10, marginTop:40, width:150,marginLeft:-20}}>
+                <Text style={{alignSelf:'center',fontSize:15, color:'whitesmoke', fontWeight:'bold'}} > Send information</Text>
+           </ButtonPers> 
             </>
              :<></>
                 }
@@ -181,12 +183,15 @@ const styles = StyleSheet.create({
         alignItems:"center"
     },
     TextInput:{
+        borderColor: '#111111',
+        borderWidth: 2,
         width:  290,
         height: 40,
+        alignSelf: 'center',
         paddingLeft:10,
         borderRadius: 7,
         marginTop:  10,
-        backgroundColor: "#999999",
+        backgroundColor: "whitesmoke",
        },
        butButton:{
         backgroundColor: "black",
@@ -202,11 +207,12 @@ const styles = StyleSheet.create({
    },
 })
 
+
 const ButtonPers = styled.TouchableOpacity`
-    width: 200px;
+    width: 300px;
     height:  40px;
     alignSelf: center;
-    borderRadius: 3px;
+    borderRadius: 5px;
     flexDirection:row;
     backgroundColor: ${props => props.color};
     justifyContent:center;
