@@ -6,7 +6,7 @@ import {ScrollView} from "react-native-gesture-handler"
 export default function Home({navigation}){
     const imageOne = require('../Assets/Newin_man.jpg')
     const imageTwo = require('../Assets/Newin_man2.jpg')
-    return(
+    return(<>
         <ScrollView>
             <ImageBackground source={require('../Assets/shopNow.jpg')} style={{width:'100%',height:450,justifyContent:'center'}}>
                 <Text style={{color:'white',alignSelf:'center',fontSize:75, fontWeight:'bold'}}>NEW IN</Text>
@@ -19,7 +19,7 @@ export default function Home({navigation}){
                 <ImageBackground source={imageTwo} style={styles.imagen}/>
             </View>
         </ScrollView>
-    )
+    </>)
 }
 
 const ImageShop = styled.Image`

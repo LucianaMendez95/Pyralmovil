@@ -45,9 +45,11 @@ const iconos = {
 }
 
 const HomeStack = createStackNavigator();
-const HomeStackScreen = () => (
+const HomeStackScreen = (props) => (
     <HomeStack.Navigator>
         <HomeStack.Screen name="Home" component={Home}
+            options={{ headerTitle: () => <Header {...props} /> }}
+
         />
         <ShopStack.Screen name="Products" component={Products} />
     </HomeStack.Navigator>
@@ -90,7 +92,7 @@ const DrawerButton = (props) => {
             onPress={() =>  {props.navigate(props.url,{render:props.render, setRender:props.setRender})}}>
             <View style={{flexDirection:'row'}}>
                 <Icon style={{alignSelf:'center',width:35,height:30}}  name={props.icono} type='font-awesome' size={30} color="#111111"/> 
-                <Text style={{color:'#111111',alignSelf:'center', fontSize:20,fontWeight:'bold'}}>{`   ${props.title}`}    </Text>
+                <Text style={{color:'#111111',alignSelf:'center', fontSize:20,fontWeight:'600'}}>{`   ${props.title}`}    </Text>
             </View>       
             <Text style={{fontSize:25, alignSelf:'center'}}>{">"}</Text>            
         </TouchableOpacity>

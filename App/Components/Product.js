@@ -23,7 +23,7 @@ const Product = (props) => {
             <ImageShop source={{ uri: url }} />
             <FotosChicas>
             <Text  style={{ alignSelf: 'center' }}>{props?.product.title}</Text>
-            <View style={{flexDirection:'row',justifyContent:'space-around',marginBottom:3}}>
+            <View style={{flexDirection:'row',justifyContent:'space-around',marginBottom:6}}>
                 <Text>{`$ ${props?.product.price}`}</Text>
                 <ContainerColors >
                     {variantsAux.map((variant,index) => <ImageShopChica key={index} style={{ backgroundColor: 
@@ -41,7 +41,7 @@ const Product = (props) => {
                                                                         variant.color === 'Red Rum' ? '#774A47' :
                                                                             variant.color === 'Golden Harvest' ? '#E6B968' :
                                                                                 variant.color === 'Military Moss' ? '#695530' :
-                                                                                    variant.color === 'Grey' ? '#303B4F' : ''}`
+                                                                                    variant.color === 'Grey' ? '#303B4F' :  variant.color === 'Egg Shell' ? '#E9DFD5':''}`
                         }} />)}
                         </ContainerColors>
             </View>
@@ -52,10 +52,9 @@ const Product = (props) => {
 
 const ImageShop = styled.Image`
     height: 120px;
-    width: 150px;
-    resizeMode: contain;
+    width: 110px;
     alignSelf:center;
-    borderRadius: 30px;
+    borderRadius: 0px;
     marginBottom: 10px ;
 `;
 

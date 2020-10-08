@@ -5,7 +5,7 @@ import styled from 'styled-components'
 import ScrollProducts from '../Components/ScrollProducts'
 import { Rating, Icon, Button} from 'react-native-elements';
 import { UpdateCart } from '../Constants/funcionesCarrito'
-import {Picker} from '@react-native-community/picker';
+import Toast from 'react-native-tiny-toast'
 
 const onShare = async (product) => {
         const result = await Share.share({
@@ -13,24 +13,17 @@ const onShare = async (product) => {
             message:`Oferta de product en ${product}`,
       });
 };
-const showToastWithGravityAndOffset = () => {
-    ToastAndroid.showWithGravityAndOffset(
-      "A wild toast appeared!",
-      ToastAndroid.LONG,
-      ToastAndroid.BOTTOM,
-      25,
-      50
-    );
-};
 const BoxSize = (props) => {
-    const styleBox = (props.variant.size === props.size)? {width:50,backgroundColor:'#787878', height:50,borderWidth:1,
-        justifyContent:'center',margin:0.1}:{width:50,backgroundColor:'#C5C2C2', height:50,borderWidth:1,
-        justifyContent:'center', margin:0.1}
+    const styleBox = (props.variant.size === props.size)? {width:50,backgroundColor:'black', height:50,borderWidth:1,
+        justifyContent:'center',margin:0}:{width:50,backgroundColor:'white', height:50,borderWidth:1,
+        justifyContent:'center', margin:0}
+    const styleText = (props.variant.size === props.size)? {textAlign:'center',color:'white',fontSize:20,fontWeight:'bold'}:
+        {textAlign:'center',fontSize:20,fontWeight:'bold'}
     return(
         <TouchableOpacity  onPress={() => props.setProducts({...props.products,size:props.variant.size})} 
             label={`Size ${props.variant.size}`} 
             style={styleBox}>
-            <Text style={{textAlign:'center',fontSize:20,fontWeight:'bold'}}>{props.variant.size}</Text>
+            <Text style={styleText}>{props.variant.size}</Text>
         </TouchableOpacity>
     )
 }
@@ -44,6 +37,18 @@ const borrarRepe = (variants) => {
     })
     return variantsAux
 }
+const toast = (product) =>  {
+        return(
+            Toast.show(`Add ${product.title}`,{
+            position: Toast.position.center,
+            containerStyle:{backgroundColor:'whitesmoke',marginBottom:'50%'},
+            textStyle: {color:'#111111'},
+            imgSource: require('../Assets/simbolo-correcto.png'),
+            imgStyle: {width:40,height:40},
+            mask: true,
+            maskStyle:{},
+        }))
+}
 
 export default function OneProduct(props){
     const product = props.route.params.item
@@ -51,7 +56,10 @@ export default function OneProduct(props){
             title: product.title, quantity:1, _id: product._id, price:product.price,
             size: product.variants[0].size, color: product.variants[0].color    
     })
-
+    const addToCart = (product) => {
+        UpdateCart(product)
+        toast(product)    
+    }
     const image = products.photo.replace(LOCAL_HOST,IMAGE)
     const rating = (product.reviews === 0)? product.stars:product.stars/product.reviews
     return(
@@ -72,17 +80,26 @@ export default function OneProduct(props){
             </View>            
             <View style={{ alignItems:'center'}}>
                 <ImageShop source={{uri:image}} margin={0} width={310} height={350}/>
-                <ScrollView horizontal={true} 
-                        style={{width:150, height:50}}>
-                    {borrarRepe(product.variants).map((variant,index) => (
-                    <TouchableOpacity key={index} 
-                        style={{width:50}}
-                        onPress={() =>{
-                            return setProducts({...products,...variant}) }}>
-                            <ImageShop source={{uri:variant.photo.replace(LOCAL_HOST,IMAGE)}}  
-                                width={50} margin={0} height={60} key={variant.photo}/>
-                        </TouchableOpacity>))}
-                </ScrollView>             
+                <ContainerColors >
+                    {borrarRepe(product.variants).map((variant,index) => <ImageShopChica key={index} style={{ backgroundColor: 
+                        `${variant.color === 'Wine' ? '#44282D' :
+                                variant.color === 'Black' ? '#111111' :
+                                    variant.color === 'DarkGrey' ? '#34343D' :
+                                        variant.color === 'White' ? 'whitesmoke' :
+                                            variant.color === 'Blush' ? '##EFC6B4' :
+                                                variant.color === 'Flint' ? '#C2B1C1' :
+                                                    variant.color === 'Honeycomb' ? '#C98E2A' :
+                                                        variant.color === 'Paloma' ? '#F2BBBE' :
+                                                            variant.color === 'Salt' ? '#ECE9E2' :
+                                                                variant.color === 'Sage' ? '#737B7D' :
+                                                                    variant.color === 'Anchor' ? '#4B4545' :
+                                                                        variant.color === 'Red Rum' ? '#774A47' :
+                                                                            variant.color === 'Golden Harvest' ? '#E6B968' :
+                                                                                variant.color === 'Military Moss' ? '#695530' :
+                        variant.color === 'Grey' ? '#303B4F' :  variant.color === 'Egg Shell' ? '#E9DFD5':''}`,border: ` ${variant.color === 'Cream' && '1px solid grey'}`
+                        }} />)}
+                        </ContainerColors>
+                
             </View>
             <View style={{flexDirection:'row', justifyContent:'center',marginTop:10}}>
                 {(product?.variants?.filter(vari => vari.color === products.color))?.map((vari,index) =>(
@@ -90,13 +107,13 @@ export default function OneProduct(props){
             </View>
             <View style={{flexDirection:'row',width:'87%',alignSelf:'center',
                     justifyContent:'space-around',margin:3}}>
-                <Text style={{fontSize:30}}>{`Size  ${products.size}`}</Text>
+                <Text style={{fontSize:20,alignSelf:'center'}}>{`Size  ${products.size}`}</Text>
                 <Text style={{fontSize:30}}>{`$ ${product.price}`}</Text>
             </View>        
             <Button
                 titleStyle={{fontSize:25}}
                 title="   Add To Cart"
-                onPress={() =>  UpdateCart(products)}
+                onPress={() =>  addToCart(products)}
                 buttonStyle={{width:280,height:50, borderRadius:6, alignSelf:'center',backgroundColor:"black"}}
                 icon={<Icon  name="shopping-bag" type='font-awesome' size={20} color="#FFFFFF"/>}
             />                
@@ -105,6 +122,16 @@ export default function OneProduct(props){
 
     )
 } 
+
+
+const ImageShopChica = styled.View`
+    alignSelf: center;
+    marginRight: 2px;
+    borderRadius: 100px;
+    width: 35px;
+    height: 35px;
+    borderWidth:1;
+`;
 
 
 const ImageShop = styled.Image`
@@ -116,6 +143,11 @@ const ImageShop = styled.Image`
 `;
 
 
+const ContainerColors = styled.View`
+    alignSelf: center;
+    flexDirection: row;
+    marginTop:5px;
+`;
 const styles = StyleSheet.create({
     allComponent:{
         display: 'flex',

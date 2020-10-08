@@ -1,24 +1,22 @@
 import React from 'react'
 import styled from "styled-components"
-import Carrito from '../Components/Carrito'
-import { StatusBar, StyleSheet } from "react-native";
+import { StatusBar, StyleSheet, Text } from "react-native";
 import {Icon} from 'react-native-elements';
 
 export default function Header(props) {
+    console.log(props)
     return (
-        <Container style={{backgroundColor:'red'}}>
-            <Icon name={bars} type='font-awesome' size={30} color="#111111"/> 
-            <Text>PYRAL</Text>
-            <Carrito/>        
-            <StatusBar hidden={true} />
+        <Container>
+            <Icon style={{marginTop:6}}name={'bars'} onPress={() => props.navigation.openDrawer()} type='font-awesome' size={30} color="#111111"/>
+            <Text style ={{fontSize:30 ,alignSelf:'center',fontWeight:'bold'}}>{`PYRAL`}</Text>    
         </Container>
     );
 }
 const Container = styled.View`
     flexDirection: row;
-    borderRadius: 5px;
+    borderRadius: 0px;
     justifyContent: space-between;
-    width : 100%;
+    width : 63%;
 `; 
 
 
