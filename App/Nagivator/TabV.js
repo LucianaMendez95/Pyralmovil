@@ -104,12 +104,15 @@ const CerrarSeccion = (props) => {
     }
     
     return(
-        <TouchableOpacity style={{width:'95%',alignSelf:'center',marginLeft: 5,
-            borderRadius:5,backgroundColor:"whitesmoke", flexDirection:'row' }}
+        <TouchableOpacity style={{width:'100%',paddingLeft:5,paddingRight:20,justifyContent:'space-between',borderBottomWidth:1,
+            borderRadius:5,backgroundColor:"whitesmoke", flexDirection:'row',borderBottomColor:'gray' }}
             onPress={() => log()}>
-            <Icon style={{alignSelf:'center'}}  name={props.icono} type='font-awesome' size={30} color="#111111"/> 
-            <Text style={{color:'#111111',alignSelf:'center', fontSize:20,fontWeight:'bold'}}>{`  Log Aut`}</Text>
-        </TouchableOpacity>                
+            <View style={{flexDirection:'row'}}>
+                <Icon style={{alignSelf:'center',width:35,height:30}}  name={props.icono} type='font-awesome' size={30} color="#111111"/> 
+                <Text style={{color:'#111111',alignSelf:'center', fontSize:20,fontWeight:'bold'}}>{`  Log Out`}</Text>
+            </View>       
+            <Text style={{fontSize:25, alignSelf:'center'}}>{">"}</Text>            
+        </TouchableOpacity>
     )
 }
 
@@ -131,9 +134,10 @@ const CustomDrawerContent = (props) => {
                 <View style={{justifyContent:'center',alignSelf:'center',width:'90%',
                     paddingTop:50,backgroundColor:'whitesmoke', borderRadius:60, marginBottom:30}}>  
                     <ImageShop source={require('../Assets/log2.png')} height={100} width={100} margin={0}/>
-                    <Text style={{alignSelf:'center', fontSize:25,fontWeight:'bold'}}>GUEST</Text>
+                    <Text style={{alignSelf:'center', fontSize:25,fontWeight:'bold'}}>{user === null?  "GUEST":user.firstName}</Text>
                 </View>
-                <View  style={{flex:0.35,justifyContent:'space-between'}}>            
+                    <View  style={user !== null? {flex:0.2,justifyContent:'space-between'}:
+                        {flex:0.3,justifyContent:'space-between'}}>            
                     <DrawerButton title={"Home"} url={"Home"} icono={"home"} navigate={props.navigation.navigate}/>
                     { user === null && <DrawerButton title={"LogIn"} url={"LogIn"} 
                         render={render} setRender={setRender} icono={"sign-in"} p navigate={props.navigation.navigate}/>}
@@ -141,11 +145,11 @@ const CustomDrawerContent = (props) => {
                         icono={"user-plus"} navigate={props.navigation.navigate}/>}
                     {user !== null && <DrawerButton title={"Profile"} url={"Profile"} 
                             icono={"user"} navigate={props.navigation.navigate}/>}
-                    <DrawerButton title={"FAQs"} url={"FAQs"} icono={"question-circle"} navigate={props.navigation.navigate}/>
             </View>       
             </View>
             <View style={{width:'100%',justifyContent:'center', 
-                    flex:0.1, backgroundColor:'whitesmoke', borderTopEndRadius:40, borderTopLeftRadius:40}}>
+                flex:0.15, backgroundColor:'whitesmoke', borderTopEndRadius:40, borderTopLeftRadius:40}}>
+                    <DrawerButton title={"FAQs"} url={"FAQs"} icono={"question-circle"} navigate={props.navigation.navigate}/>
                   { user !== null && <CerrarSeccion render={render} setRender={setRender}/>}
             </View>    
         </View>            

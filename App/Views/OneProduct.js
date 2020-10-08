@@ -63,21 +63,25 @@ export default function OneProduct(props){
                         </TouchableOpacity>))}
                 </ScrollView>             
             </View>
-            <Text style={styles.title}>{`$ ${product.price}`}</Text>
-            <Text style={{textAlign:'center'}}>{`Size  ${products.size}`}</Text>
             <View style={{flexDirection:'row', justifyContent:'center'}}>
                 {(product?.variants?.filter(vari => vari.color === products.color))?.map((vari,index) =>( 
                 <TouchableOpacity  onPress={() => setProducts({...products,size:vari.size})} 
                     key={index} label={`Size ${vari.size}`} 
-                    style={{width:30, height:30,borderWidth:1,justifyContent:'center', margin:1}} value={vari.size}>
-                    <Text style={{textAlign:'center'}}>{vari.size}</Text>
+                    style={{width:50, height:50,borderWidth:1,justifyContent:'center', margin:0.1}} value={vari.size}>
+                    <Text style={{textAlign:'center',fontSize:20,fontWeight:'bold'}}>{vari.size}</Text>
                 </TouchableOpacity>))}
             </View>
+            <View style={{flexDirection:'row',width:'70%',alignSelf:'center',
+                    justifyContent:'space-between',margin:3}}>
+                <Text style={{fontSize:30}}>{`Size  ${products.size}`}</Text>
+                <Text style={{fontSize:30}}>{`$ ${product.price}`}</Text>
+            </View>        
             <Button
+                titleStyle={{fontSize:25}}
                 title="   Add To Cart"
                 onPress={() =>  UpdateCart(products)}
-                buttonStyle={{width:250, borderRadius:6, alignSelf:'center',backgroundColor:"black"}}
-                icon={<Icon  name="shopping-bag" type='font-awesome' size={15} color="#FFFFFF"/>}
+                buttonStyle={{width:280,height:50, borderRadius:6, alignSelf:'center',backgroundColor:"black"}}
+                icon={<Icon  name="shopping-bag" type='font-awesome' size={20} color="#FFFFFF"/>}
             />                
             <ScrollProducts {...props}/>
         </ScrollView>
