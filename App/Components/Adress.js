@@ -28,10 +28,8 @@ export default function Adress(props){
     console.log(mensajes)
      const sendContact = async () => {
         mensajes.country = false
-        mensajes.city1 = false
-        mensajes.city2 = false
-        mensajes.address1 = false
-        mensajes.address2 = false
+        mensajes.city = false
+        mensajes.address = false
         mensajes.postalCode = false
         mensajes.phoneNumber = false
 
@@ -49,12 +47,12 @@ export default function Adress(props){
         }  else if (city.length > 15) {
             setMensajes({
                 ...mensajes,
-                city2: true
+                city: true
             })              
        }  else if (address.length > 25) {
         setMensajes({
             ...mensajes,
-            address2: true
+            address: true
         })             
        }  else if (postalCode.length > 5) {
         setMensajes({
@@ -112,7 +110,7 @@ export default function Adress(props){
                             </Picker>
                         </View> 
 
-                        {mensajes.city1 ?  <Text style={{color:"red", marginTop:10, marginBottom:-8}}>*The City you entered in too long</Text> : <Text></Text>}
+                        {mensajes.city ?  <Text style={{color:"red", marginTop:10, marginBottom:-8}}>*The City you entered in too long</Text> : <Text></Text>}
                         <View style={styles.inputs}>
                                 <TextInput
                                 style={styles.TextInput}
@@ -121,7 +119,7 @@ export default function Adress(props){
                                 onChangeText={(val) => setcity(val)}
                             />          
 
-                          {mensajes.address1 ?  <Text style={{color:"red", marginTop:10, marginBottom:-8}}>*The address you entered in too long</Text> : <Text></Text>}
+                          {mensajes.address ?  <Text style={{color:"red", marginTop:10, marginBottom:-8}}>*The address you entered in too long</Text> : <Text></Text>}
                                 <TextInput
                                 style={styles.TextInput}
                                 placeholder="Write your address here"
