@@ -11,7 +11,8 @@ export default function Home({navigation}){
             <ImageBackground source={require('../Assets/shopNow.jpg')} style={{width:'100%',height:450,justifyContent:'center'}}>
                 <Text style={{color:'white',alignSelf:'center',fontSize:75, fontWeight:'bold'}}>NEW IN</Text>
                 <TouchableOpacity style={{borderColor:'white', borderWidth:3,width:'35%',alignSelf:'center'}}>
-                    <Text style={{color:'white',alignSelf:'center',fontSize:35}}>VIEW</Text>
+                    <Text onPress={() => navigation.navigate('Products')} 
+                        style={{color:'white',alignSelf:'center',fontSize:35}}>VIEW</Text>
                 </TouchableOpacity>
             </ImageBackground>    
             <View style={styles.viewimagen}>

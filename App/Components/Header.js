@@ -7,8 +7,8 @@ export default function Header(props) {
     console.log(props)
     return (
         <Container>
-            <Icon style={{marginTop:6}}name={'bars'} onPress={() => props.navigation.openDrawer()} type='font-awesome' size={30} color="#111111"/>
-            <Text style ={{fontSize:30 ,alignSelf:'center',fontWeight:'bold'}}>{`PYRAL`}</Text>    
+            <Icon containerStyle={{alignSelf:'center'}}  name={'bars'} onPress={() => props.navigation.openDrawer()} type='font-awesome' size={30} color="#111111"/>
+            <Text style ={{fontSize:30 ,alignSelf:'center',fontWeight:'bold'}}>{props.title}</Text>    
         </Container>
     );
 }

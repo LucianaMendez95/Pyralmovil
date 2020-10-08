@@ -81,7 +81,9 @@ export default function OneProduct(props){
             <View style={{ alignItems:'center'}}>
                 <ImageShop source={{uri:image}} margin={0} width={310} height={350}/>
                 <ContainerColors >
-                    {borrarRepe(product.variants).map((variant,index) => <ImageShopChica key={index} style={{ backgroundColor: 
+                    {borrarRepe(product.variants).map((variant,index) => <ImageShopChica onPress={() =>{
+                            return setProducts({...products,...variant})}}
+ key={index} style={{ backgroundColor: 
                         `${variant.color === 'Wine' ? '#44282D' :
                                 variant.color === 'Black' ? '#111111' :
                                     variant.color === 'DarkGrey' ? '#34343D' :
@@ -96,7 +98,9 @@ export default function OneProduct(props){
                                                                         variant.color === 'Red Rum' ? '#774A47' :
                                                                             variant.color === 'Golden Harvest' ? '#E6B968' :
                                                                                 variant.color === 'Military Moss' ? '#695530' :
-                        variant.color === 'Grey' ? '#303B4F' :  variant.color === 'Egg Shell' ? '#E9DFD5':''}`,border: ` ${variant.color === 'Cream' && '1px solid grey'}`
+                        variant.color === 'Grey' ? '#303B4F' :  variant.color === 'Egg Shell' ? '#E9DFD5'
+                        :variant.color === 'Cream' ? '#FFF0C9':''}`,border: 
+                        ` ${variant.color === 'Cream' && '1px solid grey'}`
                         }} />)}
                         </ContainerColors>
                 
@@ -124,13 +128,12 @@ export default function OneProduct(props){
 } 
 
 
-const ImageShopChica = styled.View`
+const ImageShopChica = styled.TouchableOpacity`
     alignSelf: center;
     marginRight: 2px;
     borderRadius: 100px;
     width: 35px;
     height: 35px;
-    borderWidth:1;
 `;
 
 

@@ -48,20 +48,24 @@ const HomeStack = createStackNavigator();
 const HomeStackScreen = (props) => (
     <HomeStack.Navigator>
         <HomeStack.Screen name="Home" component={Home}
-            options={{ headerTitle: () => <Header {...props} /> }}
-
+            options={{ headerTitle: () => <Header {...props} title={'PYRAL'}/>}}
         />
-        <ShopStack.Screen name="Products" component={Products} />
+        <ShopStack.Screen name="Products" component={Products} 
+            options={{ headerTitle: () => <Header {...props} title={'SHOP'}/>}}
+        />
     </HomeStack.Navigator>
 );
 
 
 const ShopStack = createStackNavigator();
-const ShopStackScreen = () => (
+const ShopStackScreen = (props) => (
     <ShopStack.Navigator>
-        <ShopStack.Screen name="Products" component={Products} />
-        <ShopStack.Screen name="OneProduct" component={OneProduct} />
-
+        <ShopStack.Screen name="Products" component={Products} 
+            options={{ headerTitle: () => <Header {...props} title={'SHOP'}/>}}
+        />
+        <ShopStack.Screen name="OneProduct" component={OneProduct} 
+            options={{ headerTitle: () => <Header {...props} title={'SHOP'}/>}}
+        />
     </ShopStack.Navigator>
 )
 
