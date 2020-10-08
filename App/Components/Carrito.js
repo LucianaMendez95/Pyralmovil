@@ -65,27 +65,29 @@ export default function Carrito(){
     return (<>
         <View >
             <MaterialCommunityIcons style={styles.cart} onPress={toggleOverlay}  name="cart-outline" size={35} color="black" />
-            <Overlay  isVisible={visible} onBackdropPress={toggleOverlay} >
-                {listProduct.length < 1 
-                   ?  <View style={styles.cartel}>
+            <Overlay isVisible={visible} onBackdropPress={toggleOverlay} >
+                {listProduct.length === 0
+                   && <View style={styles.cartel}>
                         <Text style={styles.titulovacio}  >Your cart is empty</Text>
                         <Text style={styles.mensaje}>Not sure what to buy? Thousands of products await you!</Text>
-                        <Text style={styles.cerrar} onPress={toggleOverlay} style={styles.button}>Close</Text>
-                     </View>
-                : <>
+                        <Text onPress={toggleOverlay} style={styles.button}>Close</Text>
+                     </View>}
+                
              {!adress
-              ?  <View style={styles.ropaDelCarrito}>
+              ?  <View style={[styles.ropaDelCarrito, listProduct.length === 0 && {height:30} ]}>
 
                     <ScrollView alignSelf='center' style={{marginTop:50}}>
                        {listProduct.map((prod,index) =><ItemCarrito product={prod} key={index}/>)}
                     </ScrollView >
+                    {listProduct.length > 0 && 
                     <View style={styles.totalPrecio}>
                         <Text style={styles.Textprecio}>Total</Text>
                         <Text style={styles.Textprecio}>${precioTotal()}</Text>
-                    </View>
+                    </View>} 
+                    {listProduct.length > 0 && 
                     <TouchableOpacity onPress={()=>checkout()} style={styles.butButton}>    
                         <Text   style={{color:'white',fontSize:20,fontWeight:'bold', textAlign:'center'}} >Buy</Text>
-                    </TouchableOpacity>        
+                    </TouchableOpacity>    }          
                  </View>
 
             :<View> 
@@ -114,7 +116,7 @@ export default function Carrito(){
                     :<Text onPress={toggleOverlay} style={styles.button}>Close</Text>}
                 </View>
 
-             </View>} </>}
+             </View>} 
           </Overlay>    
        </View>
     </>);
