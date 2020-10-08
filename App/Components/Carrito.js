@@ -85,8 +85,9 @@ export default function Carrito(){
                         <Text style={styles.Textprecio}>${precioTotal()}</Text>
                     </View>} 
                     {listProduct.length > 0 && 
-                    <TouchableOpacity onPress={()=>checkout()} style={styles.butButton}>    
-                        <Text   style={{color:'white',fontSize:20,fontWeight:'bold', textAlign:'center'}} >Buy</Text>
+                    <TouchableOpacity style={styles.butButton}>    
+                        <Text onPress={()=>checkout()} 
+                            style={{color:'white',fontSize:20,fontWeight:'bold', textAlign:'center'}} >Buy</Text>
                     </TouchableOpacity>    }          
                  </View>
 

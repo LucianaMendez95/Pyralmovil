@@ -70,16 +70,17 @@ export default function OneProduct(props){
                         >{product.title}
                     </Text>
                     <Rating startingValue={rating} 
-                        style={{width:125}} 
-                        imageSize={17} type='custom' ratingColor="#060B0C" 
+                        style={{width:125, marginTop:5}} 
+                        imageSize={17}  ratingColor="#060B0C" 
                     />
                 </View>
                 <Icon raised name='share-alt'  type='font-awesome' style={{alignSelf:'center'}}
                     color='#080808' onPress={() => onShare(product.title)} 
                 />
             </View>            
-            <View style={{ alignItems:'center'}}>
                 <ImageShop source={{uri:image}} margin={0} width={310} height={350}/>
+                <Text style={{width:320, fontSize:15,alignSelf:'center',marginTop:15,marginLeft:30, marginBottom:15}}>{product.description}</Text>
+                <Text style={{fontSize:20, marginLeft:37}}>Colors:</Text>
                 <ContainerColors >
                     {borrarRepe(product.variants).map((variant,index) => <ImageShopChica onPress={() =>{
                             return setProducts({...products,...variant})}}
@@ -104,22 +105,16 @@ export default function OneProduct(props){
                         }} />)}
                         </ContainerColors>
                 
-            </View>
-            <View style={{flexDirection:'row', justifyContent:'center',marginTop:10}}>
+            <Text style={{fontSize:20, marginLeft:38}}>{`Size  ${products.size}`}</Text>
+            <View style={{flexDirection:'row',marginLeft:38,marginTop:10}}>
                 {(product?.variants?.filter(vari => vari.color === products.color))?.map((vari,index) =>(
                  <BoxSize variant={vari} size={products.size} products={products} key={index} setProducts={setProducts}/>))}
             </View>
-            <View style={{flexDirection:'row',width:'87%',alignSelf:'center',
-                    justifyContent:'space-around',margin:3}}>
-                <Text style={{fontSize:20,alignSelf:'center'}}>{`Size  ${products.size}`}</Text>
-                <Text style={{fontSize:30}}>{`$ ${product.price}`}</Text>
-            </View>        
             <Button
                 titleStyle={{fontSize:25}}
-                title="   Add To Cart"
+                title="Add To Cart"
                 onPress={() =>  addToCart(products)}
-                buttonStyle={{width:280,height:50, borderRadius:6, alignSelf:'center',backgroundColor:"black"}}
-                icon={<Icon  name="shopping-bag" type='font-awesome' size={20} color="#FFFFFF"/>}
+                buttonStyle={{width:290,height:50, borderRadius:6, alignSelf:'center',backgroundColor:"black", marginTop:10}}
             />                
             <ScrollProducts {...props}/>
         </ScrollView>
@@ -147,7 +142,7 @@ const ImageShop = styled.Image`
 
 
 const ContainerColors = styled.View`
-    alignSelf: center;
+    marginLeft:39px;
     flexDirection: row;
     marginTop:5px;
 `;

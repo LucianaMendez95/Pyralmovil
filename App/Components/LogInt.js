@@ -53,24 +53,14 @@ const  LogInt = ({ navigation, route}) => {
                     <Text style={{alignSelf:'center',fontSize:20,marginTop:20,fontWeight:'bold' }}>¿Forgot Password?</Text>
                 </TouchableOpacity>
             </View>
-            <View style={{borderColor:'black',height:5, borderWidth:1}}></View>            
+            <View style={{borderColor:'black',flex: 0.3, borderWidth:1, justifyContent:'center'}}>
+                <ButtonPers tam={20} color={'#111111'} onPress={() => navigation.navigate('SignUp')} style={{marginBottom:20}}>
+                    <Text style={{alignSelf:'center',fontSize:18, color:'whitesmoke', fontWeight:'bold'}} >To Register</Text>
+                </ButtonPers>    
+            </View>v            
         </View>
     );
 }
-            /* <ImageBackground style = {{justifyContent:'center',flex:0.98}} imageStyle = {{borderBottomLeftRadius:70,
-                borderBottomRightRadius: 70}} source={image}>
-                <ImageShop source={require('../Assets/botLogo.png')} width={100} height={100} margin={5} />  
-                <ContainerInfo>
-                    <View style={{flexDirection:'row'}}>        
-                        <CheckBox value={false}
-                            style={{borderColor:'white', borderWidth:12}}
-                        />
-                        <Text style={{alignSelf:'center' , color: 'white' }}>Remember me</Text>
-                    </View>
-                    <Text style={{alignSelf:'center', color:'#41A6C4'}}>Forgot password</Text>
-                </ContainerInfo>   
-                                </ImageBackground>
-*/
 
 const styles = StyleSheet.create({
     welcome:{

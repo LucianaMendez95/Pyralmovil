@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 
-export const API = "http://06473abeb067.ngrok.io/api"
+export const API = "https://pyral.herokuapp.com/api"
 
 export const colors = {
     Wine: '#44282D',
@@ -20,9 +20,9 @@ export const colors = {
     Grey :'#303B4F'
 }
 
-export const LOCAL_HOST = "http://localhost:4000"
+export const LOCAL_HOST = "https://pyral.herokuapp.com"
 
-export const IMAGE = "http://06473abeb067.ngrok.io"
+export const IMAGE = "https://pyral.herokuapp.com"
 
 
 /*Styles Components*/

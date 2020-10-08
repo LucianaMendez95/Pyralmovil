@@ -147,9 +147,9 @@ const CustomDrawerContent = (props) => {
                         {flex:0.3,justifyContent:'space-between'}}>            
                     <DrawerButton title={"Home"} url={"Home"} icono={"home"} navigate={props.navigation.navigate}/>
                     { user === null && <DrawerButton title={"LogIn"} url={"LogIn"} 
-                        render={render} setRender={setRender} icono={"sign-in"} p navigate={props.navigation.navigate}/>}
+                        render={render} setRender={setRender} icono={"sign-in"}  navigate={props.navigation.navigate}/>}
                     {user === null && <DrawerButton title={"SignUp"} url={"SignUp"} 
-                        icono={"user-plus"} navigate={props.navigation.navigate}/>}
+                        render={render} setRender={setRender} icono={"user-plus"} navigate={props.navigation.navigate}/>}
                     {user !== null && <DrawerButton title={"Profile"} url={"Profile"} 
                             icono={"user"} navigate={props.navigation.navigate}/>}
             </View>       

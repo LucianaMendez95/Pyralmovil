@@ -2,13 +2,14 @@ import React, { useState, useEffect } from 'react';
 import {View, Text, CheckBox, ImageBackground, Button, StyleSheet, TextInput} from 'react-native';
 import styled from 'styled-components'
 import Icon from 'react-native-vector-icons/FontAwesome';
+import {seveKeyValue} from '../Constants/FuncAsyncStorage'
 import axios from 'axios'
 import {API} from '../Constants/index'
 
 
 
 
- const  SignUp = () => {
+ const  SignUp = ({ navigation, route}) => {
     const image = {uri:'https:www.onlygfx.com/wp-content/uploads/2017/07/paint-texture-black-and-white-3.jpeg'}
 
     const [name, setName] = React.useState("")
@@ -101,85 +102,84 @@ import {API} from '../Constants/index'
                 pass:pass
             }
 
-            await axios.post(`${API}/user/register`, newUser)
-            alert("Thank you for Signing Up")
-           
+            const response =  await axios.post(`${API}/user/register`, newUser)
+            const {contact, firstName, lastName, mail, rating, rol, token} = response.data
+            const user = {contact, firstName, lastName, mail, rating, rol, token}
+            seveKeyValue('user',user,true)
+            route.params.setRender(!route.params.render)
+            alert('Welcome')
+            navigation.navigate('Home') 
         }
 
     }
 
     
     return(
-        
-        <View style = {{backgroundColor:'#2B3B40',flex:1}}>
-          <ImageBackground style = {{justifyContent:'center',flex:1}} imageStyle = {{borderBottomLeftRadius:70, borderBottomRightRadius: 70}} source={image}> 
-          <Text style={styles.welcome}>Sign up</Text>
-
-          {mensajes.firstName1 ? <Text style={styles.mensajeError} >*Your name must contain at least 3 characters</Text> : mensajes.firstName2 ?  <Text style={styles.mensajeError}>*Your name must contain only uppercase letter, lowercase letter, numbers, numbers, '_' and '.'</Text> : <Text></Text>}
-          <TextInput
-                style={styles.TextInput}
-				placeholder="Write your name here"
-				placeholderTextColor="#ffffffa9" 
-				onChangeText={(val) => setName(val)}
-			/>
-        
-           {mensajes.lastName1 ? <Text style={styles.mensajeError}>*Your lastName must contain at least 3 characters</Text> : mensajes.lastName2 ?  <Text style={styles.mensajeError}>*Your lastName must contain only uppercase letter, lowercase letter, numbers, numbers, '_' and '.'</Text> : <Text></Text>}
-           <TextInput
-                style={styles.TextInput}
-				placeholder="Write your last name here"
-				placeholderTextColor="#ffffffa9" 
-				onChangeText={(val) => setSurname(val)}
-			/>
-        
-          {mensajes.mail1 ? <Text style={styles.mensajeError}>*Your mail must contain at least 6 characters</Text> : mensajes.mail2 ?  <Text style={styles.mensajeError}>*Your mail must be a valid mal, for exaple: 'example@server.com</Text> : <Text></Text>}
-            <TextInput
-                style={styles.TextInput}
-				keyboardType= 'email-address'
-				placeholder="Write your mail here"
-				placeholderTextColor="#ffffffa9"
-				onChangeText={(val) => setMail(val)}
-			/>
-			
-            {mensajes.pass1 ? <Text style={styles.mensajeError}>*Your password must contain at least 5 characters</Text> : mensajes.pass2 ?  <Text style={styles.mensajeError}>*Your Password must include at least one uppercase letter, at least one lowercase letter, and at least one number.</Text> : <Text></Text>}
-            <TextInput
-                style={styles.TextInput}
-				secureTextEntry= {true}
-				placeholder="Write your password here"
-                placeholderTextColor="#ffffffa9"
-                onChangeText={(val)=> setPass(val)}
-			/>
-
-
-                <ContainerInfo>
-                    <View style={{flexDirection:'row'}}>        
-                        <CheckBox value={false}
-                            style={{borderColor:'white', borderWidth:12}}
-                        />
-                        <Text style={{alignSelf:'center' , color: 'white' }}>Remember me</Text>
-                    </View>
-                </ContainerInfo>   
-                <ButtonPers tam={50} color={'#DBEBF0'}>
-                    <Text style={{alignSelf:'center'}} onPress={sendInfo} >Create Account</Text>
+        <View style ={{backgroundColor:'whitesmoke',flex:1, justifyContent:'center'}}>
+            <ImageBackground source={image} style={{flex:0.4, justifyContent:'center'}}>
+                <ImageShop source={require('../Assets/21.png')}  width={225} height={125} style={{marginTop:'16%'}} margin={0} />
+            </ImageBackground>
+            <View style={{flex:0.9, height:'50%'}}>              
+                <Text style={{...styles.welcome, color:'black', fontWeight:'bold'}}>Sign up</Text>
+                    {mensajes.firstName1 ? <Text style={styles.mensajeError} >*Your name must contain at least 3 characters</Text>                     :mensajes.firstName2 ?  <Text style={styles.mensajeError}>*Your name must contain only uppercase letter, 
+                    lowercase letter, numbers, numbers, '_' and '.'</Text> : <Text></Text>}
+                <TextInput
+                    style={styles.TextInput}
+				    placeholder="Write your name here"
+				    placeholderTextColor="#111111"
+				    onChangeText={(val) => setName(val)}
+			    />
+                {mensajes.lastName1 ? <Text style={styles.mensajeError}>*Your lastName must contain at least 3 characters</Text>:
+                    mensajes.lastName2 ?  <Text style={styles.mensajeError}>*Your lastName must contain only uppercase letter,
+                    lowercase letter, numbers, numbers, '_' and '.'</Text> : <Text></Text>}
+                <TextInput
+                    style={styles.TextInput}
+			    	placeholder="Write your last name here"
+				    placeholderTextColor="#111111"
+				    onChangeText={(val) => setSurname(val)}
+			    />
+                {mensajes.mail1 ? <Text style={styles.mensajeError}>*Your mail must contain at least 6 characters</Text>: 
+                    mensajes.mail2 ?  <Text style={styles.mensajeError}>*Your mail must be a valid mal, for exaple:
+                    'example@server.com</Text> : <Text></Text>}
+                <TextInput
+                    style={styles.TextInput}
+				    keyboardType= 'email-address'
+				    placeholder="Write your mail here"
+				    placeholderTextColor="#111111"
+				    onChangeText={(val) => setMail(val)}
+			    />	
+                {mensajes.pass1 ? <Text style={styles.mensajeError}>*Your password must contain at least 5 characters</Text>:
+                    mensajes.pass2 ?  <Text style={styles.mensajeError}>*Your Password must include at least one uppercase 
+                    letter, at least one lowercase letter, and at least one number.</Text> : <Text></Text>}
+                <TextInput
+                    style={styles.TextInput}
+				    secureTextEntry= {true}
+				    placeholder="Write your password here"
+                    placeholderTextColor="#111111"
+                    onChangeText={(val)=> setPass(val)}
+                />
+                <ButtonPers tam={50} color={'#111111'}>
+                    <Text style={{alignSelf:'center',fontSize:18, color:'whitesmoke', fontWeight:'bold'}} 
+                        onPress={sendInfo} >Create Account</Text>
                 </ButtonPers>    
-                <ButtonPers tam={30} color={'#DBEBF0'}>
-                    <Text style={{alignSelf:'center'}} >Log init google</Text>
-                </ButtonPers>            
-        
-         </ImageBackground>
-      </View>
-      );
- 
+                <ButtonPers tam={30} color={'#111111'}>
+                    <Text style={{alignSelf:'center',fontSize:18, color:'whitesmoke', fontWeight:'bold'}} >
+                        Log init google
+                    </Text>
+                </ButtonPers>             
+            </View>
+        </View>
+    );
  }
 
  const styles = StyleSheet.create({
     welcome:{
         alignSelf: 'center',
         fontSize: 30,
-         marginTop: 15,
          color:"white",
     },
-   TextInput:{
-    borderColor: '#6A9DAC',
+  TextInput:{
+    borderColor: '#111111',
     borderWidth: 2,
     width:  290,
     height: 40,
@@ -187,8 +187,8 @@ import {API} from '../Constants/index'
     paddingLeft:10,
     borderRadius: 7,
     marginTop:  10,
-    backgroundColor: "#8F8B97",
-   },
+    backgroundColor: "whitesmoke",
+   }, 
    mensajeError:{
        color:"red",
        alignSelf: 'center',
@@ -198,19 +198,25 @@ import {API} from '../Constants/index'
    }
 })
 
- 
+const ImageShop = styled.Image`
+    height: ${props => `${props.height}px`};
+    width: ${props => `${props.width}px`};
+    resizeMode: contain;
+    alignSelf:center;
+    borderRadius: 5px;
+    marginBottom: ${props => `${props.margin}px`};
+`;
 
 const ButtonPers = styled.TouchableOpacity`
-    width: 200px;
+    width: 300px;
     height:  40px;
     alignSelf: center;
-    borderRadius: 10px;
+    borderRadius: 5px;
     flexDirection:row;
     backgroundColor: ${props => props.color};
     justifyContent:center;
     marginTop: ${props => `${props.tam}px`};   
 `;
-
 
 const ContainerInfo = styled.View`
     marginTop: 10px;
