@@ -12,17 +12,38 @@ const onShare = async (product) => {
             title:`Oferta de product en ${product}`,
             message:`Oferta de product en ${product}`,
       });
-      if (result.action === Share.sharedAction) {
-        if (result.activityType) {
-          // shared with activity type of result.activityType
-        } else {
-          // shared
-        }
-      } else if (result.action === Share.dismissedAction) {
-        // dismissed
-      }
 };
+const showToastWithGravityAndOffset = () => {
+    ToastAndroid.showWithGravityAndOffset(
+      "A wild toast appeared!",
+      ToastAndroid.LONG,
+      ToastAndroid.BOTTOM,
+      25,
+      50
+    );
+};
+const BoxSize = (props) => {
+    const styleBox = (props.variant.size === props.size)? {width:50,backgroundColor:'#787878', height:50,borderWidth:1,
+        justifyContent:'center',margin:0.1}:{width:50,backgroundColor:'#C5C2C2', height:50,borderWidth:1,
+        justifyContent:'center', margin:0.1}
+    return(
+        <TouchableOpacity  onPress={() => props.setProducts({...props.products,size:props.variant.size})} 
+            label={`Size ${props.variant.size}`} 
+            style={styleBox}>
+            <Text style={{textAlign:'center',fontSize:20,fontWeight:'bold'}}>{props.variant.size}</Text>
+        </TouchableOpacity>
+    )
+}
 
+const borrarRepe = (variants) => {
+    const variantsAux = []
+    variants.forEach(vari => {
+        if (variantsAux.filter(varia => varia.color === vari.color).length !== 0)
+            return
+        variantsAux.push(vari)
+    })
+    return variantsAux
+}
 
 export default function OneProduct(props){
     const product = props.route.params.item
@@ -53,7 +74,7 @@ export default function OneProduct(props){
                 <ImageShop source={{uri:image}} margin={0} width={310} height={350}/>
                 <ScrollView horizontal={true} 
                         style={{width:150, height:50}}>
-                    {product.variants.map((variant,index) => (
+                    {borrarRepe(product.variants).map((variant,index) => (
                     <TouchableOpacity key={index} 
                         style={{width:50}}
                         onPress={() =>{
@@ -63,16 +84,12 @@ export default function OneProduct(props){
                         </TouchableOpacity>))}
                 </ScrollView>             
             </View>
-            <View style={{flexDirection:'row', justifyContent:'center'}}>
-                {(product?.variants?.filter(vari => vari.color === products.color))?.map((vari,index) =>( 
-                <TouchableOpacity  onPress={() => setProducts({...products,size:vari.size})} 
-                    key={index} label={`Size ${vari.size}`} 
-                    style={{width:50, height:50,borderWidth:1,justifyContent:'center', margin:0.1}} value={vari.size}>
-                    <Text style={{textAlign:'center',fontSize:20,fontWeight:'bold'}}>{vari.size}</Text>
-                </TouchableOpacity>))}
+            <View style={{flexDirection:'row', justifyContent:'center',marginTop:10}}>
+                {(product?.variants?.filter(vari => vari.color === products.color))?.map((vari,index) =>(
+                 <BoxSize variant={vari} size={products.size} products={products} key={index} setProducts={setProducts}/>))}
             </View>
-            <View style={{flexDirection:'row',width:'70%',alignSelf:'center',
-                    justifyContent:'space-between',margin:3}}>
+            <View style={{flexDirection:'row',width:'87%',alignSelf:'center',
+                    justifyContent:'space-around',margin:3}}>
                 <Text style={{fontSize:30}}>{`Size  ${products.size}`}</Text>
                 <Text style={{fontSize:30}}>{`$ ${product.price}`}</Text>
             </View>        

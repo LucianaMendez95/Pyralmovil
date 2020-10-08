@@ -128,6 +128,7 @@ const CustomDrawerContent = (props) => {
                 setUser({...userP})}
         })
     },[render])
+
     return (<>
         <View style={{backgroundColor:'whitesmoke',flex:1}}>            
             <View style={{backgroundColor:'whitesmoke',flex:1}} >

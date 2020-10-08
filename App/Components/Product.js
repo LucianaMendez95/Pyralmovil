@@ -22,11 +22,10 @@ const Product = (props) => {
         <Arcticulo>
             <ImageShop source={{ uri: url }} />
             <FotosChicas>
-                <View style={{ alignSelf: 'center' }}>
-                    <Text>{props?.product.title}</Text>
-                    <Text>{`$ ${props?.product.price}`}</Text>
-                </View>
-                <ContainerColors>
+            <Text  style={{ alignSelf: 'center' }}>{props?.product.title}</Text>
+            <View style={{flexDirection:'row',justifyContent:'space-around',marginBottom:3}}>
+                <Text>{`$ ${props?.product.price}`}</Text>
+                <ContainerColors >
                     {variantsAux.map((variant,index) => <ImageShopChica key={index} style={{ backgroundColor: 
                         `${variant.color === 'Wine' ? '#44282D' :
                                 variant.color === 'Black' ? '#111111' :
@@ -44,7 +43,8 @@ const Product = (props) => {
                                                                                 variant.color === 'Military Moss' ? '#695530' :
                                                                                     variant.color === 'Grey' ? '#303B4F' : ''}`
                         }} />)}
-                </ContainerColors>
+                        </ContainerColors>
+            </View>
             </FotosChicas>
         </Arcticulo>
     )
@@ -76,7 +76,6 @@ const FotosChicas = styled.View`
     height: 50px;
     width: 135px;
     alignSelf: center;
-    flexDirection:row;        
     padding: 1px;
     display: flex;
     borderTopColor: black;
