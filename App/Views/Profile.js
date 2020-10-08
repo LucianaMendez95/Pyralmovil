@@ -63,13 +63,12 @@ export default function Profile(props){
                         <Text style={styles.infotitulo}>Forgot your password?</Text>
                         <TextInput
                             style={styles.TextInput}
-                            secureTextEntry= {true}
                             placeholder="Write your new password here"
                             placeholderTextColor="#ffffffa9"
                             onChangeText={(val)=> setPass(val)}
                         />
                         <ButtonPers tam={50} color={'#DBEBF0'} style={{alignSelf:'left', marginTop:10, width:150}}>
-                           <Text style={{alignSelf:'center'}} onPress={sendInfo} >Change Password</Text>
+                           <Text style={{alignSelf:'center'}} onPress={() => sendInfo} >Change Password</Text>
                         </ButtonPers>                  
                    </View>
               

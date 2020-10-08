@@ -12,7 +12,7 @@ const ItemCarrito = (props) => {
         UpdateCart(props.product, quantity)
         props.setUpdate(!props.update)
     }
-    const url = props.product.variants[0].photo.replace(LOCAL_HOST,IMAGE)
+    const url = props.product.photo.replace(LOCAL_HOST,IMAGE)
     return (
             <View style={styles.unelEmentoCarrito}>
                 <ImageShop source={{uri:`${url}`}} width={100} height={80} margin={1}/>

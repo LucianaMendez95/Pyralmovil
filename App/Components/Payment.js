@@ -6,8 +6,6 @@ import {Picker} from '@react-native-community/picker';
 import CreditCardDisplay from "react-native-credit-card-display";
 
 
-
-
 export default function Payment(props) {
     const [paymentType, setpaymentType] = React.useState()
 
