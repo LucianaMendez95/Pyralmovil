@@ -24,41 +24,49 @@ export default function Adress(props){
             postalCode: false,
             phoneNumber: false,
     })
+
+    console.log(mensajes)
      const sendContact = async () => {
-        const uname = RegExp(/^[a-zA-Z0-9._]+$/)
-        this.state.mensajes.country = false
-        this.state.mensajes.city1 = false
-        this.state.mensajes.city2 = false
-        this.state.mensajes.address1 = false
-        this.state.mensajes.address2 = false
-        this.state.mensajes.postalCode = false
-        this.state.mensajes.phoneNumber = false
+        mensajes.country = false
+        mensajes.city1 = false
+        mensajes.city2 = false
+        mensajes.address1 = false
+        mensajes.address2 = false
+        mensajes.postalCode = false
+        mensajes.phoneNumber = false
 
 
-        if (this.state.country === '' || this.state.city === '' || this.state.address === '' || this.state.postalCode === '' || this.state.phoneNumber === '') {
-            toast.error("please complete all fields")
+        if (country === '' || city === '' || address === '' || postalCode === '' || phoneNumber === '') {
+            alert("please complete all fields")
+            
 
-        } else if (this.state.country.length > 15) {
-            toast.error("The country you entered in too long")
-        } else if (!uname.test(this.state.city)) {
-            toast.error("The City must contain only uppercase letter and lowercase letter")
+        } else if (country.length > 15) {
+            setMensajes({
+                ...mensajes,
+                country: true
+            })
 
-        }  else if (this.state.city.length > 15) {
-            toast.error("The City you entered in too long")
-        
-        } else if (!uname.test(this.state.address)) {
-            toast.error("The address must contain only uppercase letter, lowercase letter and numbers")
+        }  else if (city.length > 15) {
+            setMensajes({
+                ...mensajes,
+                city2: true
+            })              
+       }  else if (address.length > 25) {
+        setMensajes({
+            ...mensajes,
+            address2: true
+        })             
+       }  else if (postalCode.length > 5) {
+        setMensajes({
+            ...mensajes,
+            postalCode: true
+        })   
 
-       }  else if (this.state.address.length > 25) {
-        toast.error("The address you entered in too long")
-       
-       }  else if (this.state.postalCode.length > 5) {
-        toast.error("The postalCode you entered in too long")
-
-
-        }  else if (this.state.phoneNumber.length > 10) {
-            toast.error("The phoneNumber you entered in too long")
-
+        }  else if (phoneNumber.length > 10) {
+            setMensajes({
+                ...mensajes,
+                phoneNumber: true
+            })  
         }else{
         await axios.post(`${API}/user/direction`, { country, city, address, postalCode, phoneNumber, token })
         // await this.props.getContact(this.props.userlogged.token)
@@ -104,7 +112,7 @@ export default function Adress(props){
                             </Picker>
                         </View> 
 
-                        {this.state.mensajes.city1 ? <p >*The City must contain only uppercase letter and lowercase letter</p> : this.state.mensajes.city2 ? <p>*The City you entered in too long</p> : <p></p>}
+                        {mensajes.city1 ?  <Text style={{color:"red", marginTop:10, marginBottom:-8}}>*The City you entered in too long</Text> : <Text></Text>}
                         <View style={styles.inputs}>
                                 <TextInput
                                 style={styles.TextInput}
@@ -113,7 +121,7 @@ export default function Adress(props){
                                 onChangeText={(val) => setcity(val)}
                             />          
 
-                          {this.state.mensajes.address1 ? <p>*The address must contain only uppercase letter, lowercase letter and numbers</p> : this.state.mensajes.address2 ? <p>*The address you entered in too long</p> : <p></p>}
+                          {mensajes.address1 ?  <Text style={{color:"red", marginTop:10, marginBottom:-8}}>*The address you entered in too long</Text> : <Text></Text>}
                                 <TextInput
                                 style={styles.TextInput}
                                 placeholder="Write your address here"
@@ -124,7 +132,7 @@ export default function Adress(props){
                         </View>
                         <View>
 
-                        {this.state.mensajes.postalCode ? <p>*The postalCode you entered in too long</p> : <p></p>}
+                        {mensajes.postalCode ? <Text style={{color:"red", marginTop:10, marginBottom:-8}}>*The postalCode you entered in too long</Text > : <Text></Text>}
                             <TextInput
                                     style={styles.TextInput}
                                     placeholder="Write your postalCode here"
@@ -132,7 +140,7 @@ export default function Adress(props){
                                     onChangeText={(val) => setpostalCode(val)}
                                 />                 
 
-                                {this.state.mensajes.postalCode ? <p>*The phone number you entered in too long</p> : <p></p>}
+                                {mensajes.phoneNumber ? <Text style={{color:"red", marginTop:10, marginBottom:-8}}>*The phone number you entered in too long</Text> : <Text></Text>}
                                     <TextInput
                                     style={styles.TextInput}
                                     placeholder="Write your phoneNumber here"
