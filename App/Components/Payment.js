@@ -41,7 +41,7 @@ export default function Payment(props) {
                         <Picker.Item key={1} label="Cash" value="Cash"/>
                         <Picker.Item key={2} label="Card" value="Card"/>
              </Picker>   
-             
+
          {paymentType === "Card"
          ? <View style={styles.card}>
                 <CreditCardDisplay

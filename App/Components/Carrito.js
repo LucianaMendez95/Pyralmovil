@@ -19,12 +19,12 @@ export default function Carrito(){
         setVisible(!visible);
         setcartell(false)
         setPayy(false);
-        setadresss(false);
+        setadress(false);
     };
-    const [adresss, setadresss] = useState(false);
+    const [adress, setadress] = useState(false);
 
     const checkout =()=>{
-        setadresss(!adresss);
+        setadress(!adress);
     }
     
 
@@ -58,24 +58,36 @@ export default function Carrito(){
         return `${precioTotal}`
        }      
 
+ 
+
+
+
     return (<>
         <View >
-            <MaterialCommunityIcons style={styles.cart} onPress={toggleOverlay} name="cart-outline" size={35} color="black" />
-            <Overlay  isVisible={visible} onBackdropPress={toggleOverlay} >
-             
-             {!adresss
-              ?  <View style={styles.ropaDelCarrito}>
-                    <ScrollView alignSelf='center' style={{marginTop:5}}>
-                       {listProduct?.map((prod,index) =><ItemCarrito product={prod} key={index}/>)}
+            <MaterialCommunityIcons style={styles.cart} onPress={toggleOverlay}  name="cart-outline" size={35} color="black" />
+            <Overlay isVisible={visible} onBackdropPress={toggleOverlay} >
+                {listProduct.length === 0
+                   && <View style={styles.cartel}>
+                        <Text style={styles.titulovacio}  >Your cart is empty</Text>
+                        <Text style={styles.mensaje}>Not sure what to buy? Thousands of products await you!</Text>
+                        <Text onPress={toggleOverlay} style={styles.button}>Close</Text>
+                     </View>}
+                
+             {!adress
+              ?  <View style={[styles.ropaDelCarrito, listProduct.length === 0 && {height:30} ]}>
+
+                    <ScrollView alignSelf='center' style={{marginTop:50}}>
+                       {listProduct.map((prod,index) =><ItemCarrito product={prod} key={index}/>)}
                     </ScrollView >
+                    {listProduct.length > 0 && 
                     <View style={styles.totalPrecio}>
                         <Text style={styles.Textprecio}>Total</Text>
                         <Text style={styles.Textprecio}>${precioTotal()}</Text>
-                    </View>
-                    <TouchableOpacity style={styles.butButton}>    
-                        <Text onPress={() => checkout()}  
-                            style={{color:'white',fontSize:20,fontWeight:'bold', textAlign:'center'}} >Buy</Text>
-                    </TouchableOpacity>        
+                    </View>} 
+                    {listProduct.length > 0 && 
+                    <TouchableOpacity onPress={()=>checkout()} style={styles.butButton}>    
+                        <Text   style={{color:'white',fontSize:20,fontWeight:'bold', textAlign:'center'}} >Buy</Text>
+                    </TouchableOpacity>    }          
                  </View>
 
             :<View> 
@@ -162,5 +174,23 @@ const styles = StyleSheet.create({
        display:"flex",
        flexDirection:"row",
         justifyContent:"space-around",
+   },
+   cartel:{
+       width:300,
+       display:"flex",
+       justifyContent:"center",
+       alignItems:"center",
+       height: 300,
+       width: 300,
+   },
+   titulovacio:{
+       fontWeight:"bold",
+       marginBottom:30
+   },
+   mensaje:{
+       paddingRight:5,
+       paddingLeft:5,
+       textAlign:"center",
+       marginBottom:30
    }
 })
