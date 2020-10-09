@@ -105,7 +105,7 @@ export default function OneProduct(props){
                         }} />)}
                         </ContainerColors>
                 
-            <Text style={{fontSize:20, marginLeft:38}}>{`Size  ${products.size}`}</Text>
+            <Text style={{fontSize:20, marginLeft:38}}>{`Size: ${products.size}`}</Text>
             <View style={{flexDirection:'row',marginLeft:38,marginTop:10}}>
                 {(product?.variants?.filter(vari => vari.color === products.color))?.map((vari,index) =>(
                  <BoxSize variant={vari} size={products.size} products={products} key={index} setProducts={setProducts}/>))}
