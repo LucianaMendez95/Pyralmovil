@@ -9,7 +9,7 @@ import { ScrollView, TouchableOpacity } from 'react-native-gesture-handler';
 import Checkout from './Checkout';
 import Payment from './Payment'
 import Cartelfinish from './Cartelfinish'
-import {removeKey} from '../Constants/FuncAsyncStorage'
+import {removeKey, seveKeyValue} from '../Constants/FuncAsyncStorage'
 
 const useForceUpdate = () => useState()[1];
 
@@ -114,6 +114,7 @@ export default function Carrito(){
                     </View>
                         :<Text onPress={() => {
                             removeKey('cart')
+                            seveKeyValue('cart',[],true)
                             toggleOverlay()
                         }} style={styles.button}
                         >Close</Text>}

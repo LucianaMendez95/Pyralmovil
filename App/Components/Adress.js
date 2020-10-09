@@ -34,6 +34,19 @@ export default function Adress(props){
         mensajes.postalCode = false
         mensajes.phoneNumber = false
 
+        const [token, settoken] = useState({})
+
+        useEffect(() => {
+            getValue('user', true)        
+            .then(userP => {
+                if(userP === null){
+                    settoken(userP.token)}
+                else{
+                    settoken({...userP.token})}
+            })
+        },[])
+        console.log(token)
+
 
         if (country === '' || city === '' || address === '' || postalCode === '' || phoneNumber === '') {
             alert("please complete all fields")
@@ -55,7 +68,7 @@ export default function Adress(props){
             ...mensajes,
             address: true
         })             
-       }  else if (postalCode.length > 5) {
+       }  else if (postalCode.length > 7) {
         setMensajes({
             ...mensajes,
             postalCode: true
@@ -67,11 +80,22 @@ export default function Adress(props){
                 phoneNumber: true
             })  
         }else{
-        await axios.post(`${API}/user/direction`, { country, city, address, postalCode, phoneNumber, token })
+        
+
+           
+            console.log(token)
+            console.log(country)
+        await axios.post(`${API}/user/direction`, { country, city, address, postalCode, phoneNumber }, {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        })
         // await this.props.getContact(this.props.userlogged.token)
         alert("Your information was sent")
         }
      }
+
+     
 
      const [changeadress, setchangeadress] = useState(false);
 
@@ -85,10 +109,19 @@ export default function Adress(props){
         useEffect(() => {
             getValue('user', true)        
             .then(userP => {
-                if(userP === null){
-                    setUser(userP.contact[0])}
-                else{
-                    setUser({...userP.contact[0]})}
+                console.log(userP.contact.length)
+                
+                if (userP.contact.length === undefined){
+                    setUser({
+                        country: "",
+                        city : "",
+                        address : "",
+                        postalCode: "",
+                        phoneNumber : ""
+
+                    })}
+                else if(userP.contact.length > 0){
+                        setUser(userP.contact[0])}
             })
         },[])
        

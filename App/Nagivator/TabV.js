@@ -21,6 +21,8 @@ import {Icon} from 'react-native-elements';
 import Carrito from '../Components/Carrito'
 import { getValue, removeKey } from '../Constants/FuncAsyncStorage'
 import Header from '../Components/Header';
+import HeaderOneProduct from '../Components/HeaderOneProduct';
+
 
 const Container = styled.View`
     flex: 1;
@@ -61,10 +63,11 @@ const ShopStack = createStackNavigator();
 const ShopStackScreen = (props) => (
     <ShopStack.Navigator>
         <ShopStack.Screen name="Products" component={Products} 
-            options={{ headerTitle: () => <Header {...props} title={'SHOP'}/>}}
+            options={{ headerTitle: () => <Header {...props} title={'SHOP'}/>, title:' ', }}
+        
         />
         <ShopStack.Screen name="OneProduct" component={OneProduct} 
-            options={{ headerTitle: () => <Header {...props} title={'SHOP'}/>}}
+            options={{ headerTitle: () => <HeaderOneProduct {...props} title={'SHOP'}/>}}
         />
     </ShopStack.Navigator>
 )

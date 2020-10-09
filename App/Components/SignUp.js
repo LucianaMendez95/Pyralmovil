@@ -9,12 +9,31 @@ import {API} from '../Constants/index'
 
 
 
-const sendInfo = async(mail,pass, surname, name, mensajes, setMensajes, route,navigation) => {
-        const yimy = mail
+ const  SignUp = ({ navigation, route}) => {
+    const image = {uri:'https:www.onlygfx.com/wp-content/uploads/2017/07/paint-texture-black-and-white-3.jpeg'}
+    const [name, setName] = React.useState("")
+    const [surname, setSurname] = React.useState("")
+    const [mail, setMail] = React.useState("")
+    const [pass, setPass] = React.useState("")
+
+    const [mensajes, setMensajes] = useState({
+        firstName1: false,
+        firstName2: false,
+        lastName1: false,
+        lastName2: false,
+        mail1: false,
+        mail2: false,
+        pass1: false,
+        pass2: false,
+    })
+    
+    
+    const sendInfo = async() => {
+        const mailpyral = mail
         const uname = RegExp(/^[a-zA-Z0-9._]+$/)
         const reMail = RegExp(/[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/)
         const rePass = RegExp(/(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?!.*[!{}[\]@#$%\^&*)(+=._-]).{5,}/)
-        console.log(1121,mail,pass, surname, name,1312)
+     
         mensajes.firstName1 = false
         mensajes.firstName2 = false
         mensajes.lastName1 = false
@@ -76,38 +95,25 @@ const sendInfo = async(mail,pass, surname, name, mensajes, setMensajes, route,na
             })
 
         } else {
-            console.log(12121,yimy,pass,surname,name,12121)
-            const response =  await axios.post(`${API}/user/register`, {mail:yimy,pass, surname, name})
-            console.log(response)
-            const {contact, firstName, lastName, mail, rating, rol, token} = response.data
-            const user = {contact, firstName, lastName, mail, rating, rol, token}
+            const newUser = {
+                firstName:name,
+                lastName:surname,
+                mail:mailpyral,
+                pass:pass
+            }
+         
+            const response =  await axios.post(`${API}/user/register`, newUser)
+            const {Contact, firstName, lastName, mail, rating, rol, token} = response.data
+            const user = {Contact, firstName, lastName, mail, rating, rol, token}
             seveKeyValue('user',user,true)
+            console.log(response.data)
+            console.log(response.data)
             route.params.setRender(!route.params.render)
             alert('Welcome')
             navigation.navigate('Home') 
         }
 
     }
-
-
- const  SignUp = ({route, navigation}) => {
-    const image = {uri:'https:www.onlygfx.com/wp-content/uploads/2017/07/paint-texture-black-and-white-3.jpeg'}
-
-    const [name, setName] = React.useState("")
-    const [surname, setSurname] = React.useState("")
-    const [mail, setMail] = React.useState("")
-    const [pass, setPass] = React.useState("")    
-    const [mensajes, setMensajes] = useState({
-            firstName1: false,
-            firstName2: false,
-            lastName1: false,
-            lastName2: false,
-            mail1: false,
-            mail2: false,
-            pass1: false,
-            pass2: false,
-        })
-
 
     
     return(
@@ -143,9 +149,7 @@ const sendInfo = async(mail,pass, surname, name, mensajes, setMensajes, route,na
 				    keyboardType= 'email-address'
 				    placeholder="Write your mail here"
 				    placeholderTextColor="#111111"
-                    onChangeText={(val) => {
-                    console.log(val)
-                    setMail(val)}}
+				    onChangeText={(val) => setMail(val)}
 			    />	
                 {mensajes.pass1 ? <Text style={styles.mensajeError}>*Your password must contain at least 5 characters</Text>:
                     mensajes.pass2 ?  <Text style={styles.mensajeError}>*Your Password must include at least one uppercase 
@@ -159,7 +163,7 @@ const sendInfo = async(mail,pass, surname, name, mensajes, setMensajes, route,na
                 />
                 <ButtonPers tam={50} color={'#111111'}>
                     <Text style={{alignSelf:'center',fontSize:18, color:'whitesmoke', fontWeight:'bold'}} 
-                        onPress={() => sendInfo(mail,pass, surname, name, mensajes, setMensajes, route,navigation)} >Create Account</Text>
+                        onPress={sendInfo} >Create Account</Text>
                 </ButtonPers>    
                 <ButtonPers tam={30} color={'#111111'}>
                     <Text style={{alignSelf:'center',fontSize:18, color:'whitesmoke', fontWeight:'bold'}} >
