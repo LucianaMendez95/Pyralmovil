@@ -144,7 +144,7 @@ const CustomDrawerContent = (props) => {
                     <Text style={{alignSelf:'center', fontSize:25,fontWeight:'bold'}}>{user === null?  "GUEST":user.firstName}</Text>
                 </View>
                     <View  style={user !== null? {flex:0.2,justifyContent:'space-between'}:
-                        {flex:0.3,justifyContent:'space-between'}}>            
+                        {flex:0.35,justifyContent:'space-between'}}>            
                     <DrawerButton title={"Home"} url={"Home"} icono={"home"} navigate={props.navigation.navigate}/>
                     { user === null && <DrawerButton title={"LogIn"} url={"LogIn"} 
                         render={render} setRender={setRender} icono={"sign-in"}  navigate={props.navigation.navigate}/>}
@@ -152,7 +152,7 @@ const CustomDrawerContent = (props) => {
                         render={render} setRender={setRender} icono={"user-plus"} navigate={props.navigation.navigate}/>}
                     {user !== null && <DrawerButton title={"Profile"} url={"Profile"} 
                             icono={"user"} navigate={props.navigation.navigate}/>}
-            </View>       
+                </View>
             </View>
             <View style={{width:'100%',justifyContent:'center', 
                 flex:0.15, backgroundColor:'whitesmoke', borderTopEndRadius:40, borderTopLeftRadius:40}}>
