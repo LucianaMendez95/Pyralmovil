@@ -17,20 +17,6 @@ import styled from 'styled-components'
 import {Icon} from 'react-native-elements';
 import { getValue, removeKey } from '../Constants/FuncAsyncStorage'
 import Header from '../Components/Header';
-import Toast from 'react-native-tiny-toast'
-const imagenOferta = 'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcT3IDDLHd5gXFm1_BziIeSNDyTxUwnDPV-IgQ&usqp=CAU'
-
-const toast = () =>  {
-    return(
-        Toast.show("Coming Soon",{
-        position: Toast.position.center,
-        containerStyle:{backgroundColor:'grey',marginBottom:'50%'},
-        textStyle: {color:'#111111'},
-        mask: true,
-        maskStyle:{},
-    }))
-}
-
 
 const Container = styled.View`
     flex: 1;
@@ -164,7 +150,7 @@ const CustomDrawerContent = (props) => {
                     <Text style={{alignSelf:'center',color:'black' ,fontSize:25,fontWeight:'bold'}}>{user === null?  "GUEST":user.mail}</Text>
                 </View>
                     <View  style={user !== null? {flex:0.2,justifyContent:'space-between'}:
-                        {flex:0.4,justifyContent:'space-between'}}>            
+                        {flex:0.35,justifyContent:'space-between'}}>            
                     <DrawerButton title={"Home"} url={"Home"} icono={"home"} navigate={props.navigation.navigate}/>
                     { user === null && <DrawerButton title={"LogIn"} url={"LogIn"} 
                         render={render} setRender={setRender} icono={"sign-in"}  navigate={props.navigation.navigate}/>}
@@ -173,13 +159,6 @@ const CustomDrawerContent = (props) => {
                     {user !== null && <DrawerButton title={"Profile"} url={"Profile"} 
                             icono={"user"} navigate={props.navigation.navigate}/>}
                 </View>
-                    <TouchableOpacity onPress={() => toast()}>
-                    <Ofertas source={{uri:imagenOferta}} imageStyle={{borderRadius:5}}>
-                        <Text style={{color:'white',alignSelf:'center',fontSize:35, fontWeight:'bold'}}>
-                            new collection
-                        </Text>
-                    </Ofertas>
-                </TouchableOpacity>
             </View>
             <View style={{width:'100%',justifyContent:'center', 
                 flex:0.15, backgroundColor:'whitesmoke', borderTopEndRadius:40, borderTopLeftRadius:40}}>
