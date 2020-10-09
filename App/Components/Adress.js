@@ -4,6 +4,8 @@ import styled from 'styled-components'
 import {API} from '../Constants/index'
 import axios from 'axios'
 import {Picker} from '@react-native-community/picker';
+import { getValue, removeKey } from '../Constants/FuncAsyncStorage'
+
 
 
 export default function Adress(props){
@@ -25,7 +27,6 @@ export default function Adress(props){
             phoneNumber: false,
     })
 
-    console.log(mensajes)
      const sendContact = async () => {
         mensajes.country = false
         mensajes.city = false
@@ -78,18 +79,58 @@ export default function Adress(props){
         setchangeadress(!changeadress);
      }
 
+     
+     const CustomDrawerContent = (props) => {
+        const [user, setUser] = useState({})
+        useEffect(() => {
+            getValue('user', true)        
+            .then(userP => {
+                if(userP === null){
+                    setUser(userP.contact[0])}
+                else{
+                    setUser({...userP.contact[0]})}
+            })
+        },[])
+       
+
+        return(
+            <View style={styles.direccion}>
+               <View style={styles.infousuario}>    
+                 <Text style={styles.titulo} >Country: </Text>
+                 <Text>{user.country}</Text>
+              </View>  
+
+              <View style={styles.infousuario}>   
+                 <Text style={styles.titulo}>City: </Text>
+                 <Text>{user.city}</Text>
+               </View> 
+
+               <View style={styles.infousuario}> 
+                 <Text style={styles.titulo}>Address:</Text>
+                 <Text>{user.address}</Text>
+              </View>
+              
+              <View style={styles.infousuario}>
+                <Text style={styles.titulo}>Postal code: </Text>
+                <Text>{user.postalCode}</Text>
+             </View>
+
+             <View style={styles.infousuario}>
+                <Text style={styles.titulo}>Phone number:</Text>
+                <Text>{user.phoneNumber}</Text>
+             </View>
+        </View>  
+        )}
+
+   
+
 
     return(
             <ScrollView style={styles.Todo}>
                 <View>
                     <Text style={styles.Titulo}>Contact information</Text>
-                    <View style={styles.direccion}>
-                        <Text>Country:</Text>
-                        <Text>City:</Text>
-                        <Text>Address:</Text>
-                        <Text>Postal code:</Text>
-                        <Text>Phone number:</Text>
-                    </View>               
+                    <CustomDrawerContent/>
+                              
                 </View>
                 <ButtonPers onPress={checkout} 
                     style={[styles.Logout, {alignSelf:'center', width: 180, height:30, 
@@ -171,7 +212,7 @@ const styles = StyleSheet.create({
         marginBottom:20
     },
     direccion:{
-        marginLeft: 10,
+        marginLeft: 20,
         marginBottom:30
 
     },
@@ -205,6 +246,15 @@ const styles = StyleSheet.create({
         marginTop: 5,
         justifyContent:'center',
    },
+   infousuario:{
+       display:"flex",
+       flexDirection:"row",
+       marginBottom:10,
+   },
+   titulo:{
+       fontWeight:"bold",
+       width:120
+   }
 })
 
 

@@ -50,7 +50,7 @@ export default function Profile(props){
             }
             
             return(
-                <ButtonPers onPress={() => log()} tam={10} color={'#111111'} style={{marginBottom:20, marginTop:120, width:150,marginLeft:-20}}>
+                <ButtonPers onPress={() => log()} tam={10} color={'#111111'} style={{marginBottom:20, marginTop:120, width:150,marginLeft:-110}}>
                 <Text style={{alignSelf:'center',fontSize:15, color:'whitesmoke', fontWeight:'bold'}} > Logout</Text>
            </ButtonPers> 
             )
@@ -58,7 +58,6 @@ export default function Profile(props){
         
         const CustomDrawerContent = (props) => {
             const [user, setUser] = useState({})
-            console.log("usuario",user)
             const [render, setRender] = useState(true)
             useEffect(() => {
                 getValue('user', true)        
@@ -72,8 +71,8 @@ export default function Profile(props){
             return(
                 <View style={styles.nombreymail}>
                 <View>
-                    <Text style={styles.nombre}>Name and last name</Text>
-                    <Text style={styles.mail}>Mail</Text>
+                    <Text style={styles.nombre}>{user.firstName}  {user.lastName}</Text>
+                    <Text style={styles.mail}>{user.mail}</Text>
                 </View>
                 <CerrarSeccion render={render} setRender={setRender}/>
                  
@@ -140,7 +139,7 @@ const styles = StyleSheet.create({
     },
 
     nombreymail:{
-        marginLeft: 10,
+        marginLeft: 20,
         display:"flex",
         flexDirection:"row",
         justifyContent:"flex-start",

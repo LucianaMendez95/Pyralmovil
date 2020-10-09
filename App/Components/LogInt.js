@@ -24,10 +24,13 @@ const  LogInt = ({ navigation, route}) => {
     }
     return(
         <View style = {{backgroundColor:'whitesmoke',flex:1, justifyContent:'center'}}>
-        <ImageBackground source={image} style={{flex:0.5, justifyContent:'center'}}>
+        <ImageBackground source={image} style={{flex:0.4, justifyContent:'center'}}>
             <ImageShop source={require('../Assets/21.png')}  width={225} height={125} margin={0} />
         </ImageBackground>        
-            <View style={{flex:0.9, marginTop:50}}>    
+            <View style={{flex:0.9, height:'50%'}}>  
+
+          <Text style={{...styles.welcome, color:'black', fontWeight:'bold'}}>Log In</Text>
+  
                 <TextInput
                     style={styles.TextInput}
 				    keyboardType= 'email-address'

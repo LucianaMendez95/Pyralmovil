@@ -115,11 +115,12 @@ import {API} from '../Constants/index'
 
     
     return(
-        <View style ={{backgroundColor:'whitesmoke',flex:1, justifyContent:'center'}}>
+        <View style ={{backgroundColor:'whitesmoke',flex:1, justifyContent:'center', marginTop:-55}}>
             <ImageBackground source={image} style={{flex:0.4, justifyContent:'center'}}>
-                <ImageShop source={require('../Assets/21.png')}  width={225} height={125} style={{marginTop:'16%'}} margin={0} />
+                <ImageShop source={require('../Assets/21.png')}  width={225} height={125} style={{marginBottom:-45}} margin={0} />
             </ImageBackground>
-            <View style={{flex:0.9, height:'50%'}}>              
+            <View style={{flex:0.9, height:'50%'}}>    
+                  
                 <Text style={{...styles.welcome, color:'black', fontWeight:'bold'}}>Sign up</Text>
                     {mensajes.firstName1 ? <Text style={styles.mensajeError} >*Your name must contain at least 3 characters</Text>                     :mensajes.firstName2 ?  <Text style={styles.mensajeError}>*Your name must contain only uppercase letter, 
                     lowercase letter, numbers, numbers, '_' and '.'</Text> : <Text></Text>}
@@ -176,6 +177,7 @@ import {API} from '../Constants/index'
     welcome:{
         alignSelf: 'center',
         fontSize: 30,
+        marginTop: 15,
          color:"white",
     },
   TextInput:{
