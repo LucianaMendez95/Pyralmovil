@@ -141,7 +141,7 @@ const CustomDrawerContent = (props) => {
                 <View style={{justifyContent:'center',alignSelf:'center',width:'90%',
                     paddingTop:50,backgroundColor:'whitesmoke', borderRadius:60, marginBottom:30}}>  
                     <ImageShop source={require('../Assets/log2.png')} height={100} width={100} margin={0}/>
-                    <Text style={{alignSelf:'center', fontSize:25,fontWeight:'bold'}}>{user === null?  "GUEST":user.firstName}</Text>
+                    <Text style={{alignSelf:'center',color:'black' ,fontSize:25,fontWeight:'bold'}}>{user === null?  "GUEST":user.mail}</Text>
                 </View>
                     <View  style={user !== null? {flex:0.2,justifyContent:'space-between'}:
                         {flex:0.3,justifyContent:'space-between'}}>            
