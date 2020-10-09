@@ -4,6 +4,8 @@ import styled from 'styled-components'
 import {API} from '../Constants/index'
 import axios from 'axios'
 import {Picker} from '@react-native-community/picker';
+import { getValue, removeKey } from '../Constants/FuncAsyncStorage'
+
 
 
 export default function Adress(props){
@@ -25,7 +27,6 @@ export default function Adress(props){
             phoneNumber: false,
     })
 
-    console.log(mensajes)
      const sendContact = async () => {
         mensajes.country = false
         mensajes.city = false
@@ -78,23 +79,63 @@ export default function Adress(props){
         setchangeadress(!changeadress);
      }
 
+     
+     const CustomDrawerContent = (props) => {
+        const [user, setUser] = useState({})
+        useEffect(() => {
+            getValue('user', true)        
+            .then(userP => {
+                if(userP === null){
+                    setUser(userP.contact[0])}
+                else{
+                    setUser({...userP.contact[0]})}
+            })
+        },[])
+       
+
+        return(
+            <View style={styles.direccion}>
+               <View style={styles.infousuario}>    
+                 <Text style={styles.titulo} >Country: </Text>
+                 <Text>{user.country}</Text>
+              </View>  
+
+              <View style={styles.infousuario}>   
+                 <Text style={styles.titulo}>City: </Text>
+                 <Text>{user.city}</Text>
+               </View> 
+
+               <View style={styles.infousuario}> 
+                 <Text style={styles.titulo}>Address:</Text>
+                 <Text>{user.address}</Text>
+              </View>
+              
+              <View style={styles.infousuario}>
+                <Text style={styles.titulo}>Postal code: </Text>
+                <Text>{user.postalCode}</Text>
+             </View>
+
+             <View style={styles.infousuario}>
+                <Text style={styles.titulo}>Phone number:</Text>
+                <Text>{user.phoneNumber}</Text>
+             </View>
+        </View>  
+        )}
+
+   
+
 
     return(
             <ScrollView style={styles.Todo}>
                 <View>
                     <Text style={styles.Titulo}>Contact information</Text>
-                    <View style={styles.direccion}>
-                        <Text>Country:</Text>
-                        <Text>City:</Text>
-                        <Text>Address:</Text>
-                        <Text>Postal code:</Text>
-                        <Text>Phone number:</Text>
-                    </View>               
+                    <CustomDrawerContent/>
+                              
                 </View>
                 <ButtonPers onPress={checkout} 
                     style={[styles.Logout, {alignSelf:'center', width: 180, height:30, 
                     marginTop:30}]} tam={50} color={'black'}><Text style={{alignSelf:"center",color:'white'}}>
-                        Add or chance adress</Text>
+                        Add or change address</Text>
                 </ButtonPers>
            {changeadress
            
@@ -115,7 +156,7 @@ export default function Adress(props){
                                 <TextInput
                                 style={styles.TextInput}
                                 placeholder="Write your city here"
-                                placeholderTextColor="#ffffffa9" 
+                                placeholderTextColor="#111111"
                                 onChangeText={(val) => setcity(val)}
                             />          
 
@@ -123,7 +164,7 @@ export default function Adress(props){
                                 <TextInput
                                 style={styles.TextInput}
                                 placeholder="Write your address here"
-                                placeholderTextColor="#ffffffa9" 
+                                placeholderTextColor="#111111"
                                 onChangeText={(val) => setadress(val)}
                             />               
                             
@@ -134,7 +175,7 @@ export default function Adress(props){
                             <TextInput
                                     style={styles.TextInput}
                                     placeholder="Write your postalCode here"
-                                    placeholderTextColor="#ffffffa9" 
+                                    placeholderTextColor="#111111"
                                     onChangeText={(val) => setpostalCode(val)}
                                 />                 
 
@@ -142,13 +183,15 @@ export default function Adress(props){
                                     <TextInput
                                     style={styles.TextInput}
                                     placeholder="Write your phoneNumber here"
-                                    placeholderTextColor="#ffffffa9" 
+                                    placeholderTextColor="#111111" 
                                     onChangeText={(val) => setphoneNumber(val)}
                             />     
                         </View>
                     </View>
                  </View>
-                 <TouchableOpacity style={styles.butButton} onPress={sendContact} style={[styles.Logout, {alignSelf:'center', width: 130, height:30, marginTop:30}]} tam={50} color={'white'}><Text style={{alignSelf:"center"}}>Send information</Text></TouchableOpacity>
+                 <ButtonPers onPress={sendContact} tam={10} color={'#111111'} style={{marginBottom:10, marginTop:40, width:150,marginLeft:-20}}>
+                <Text style={{alignSelf:'center',fontSize:15, color:'whitesmoke', fontWeight:'bold'}} > Send information</Text>
+           </ButtonPers> 
             </>
              :<></>
                 }
@@ -169,7 +212,7 @@ const styles = StyleSheet.create({
         marginBottom:20
     },
     direccion:{
-        marginLeft: 10,
+        marginLeft: 20,
         marginBottom:30
 
     },
@@ -181,12 +224,15 @@ const styles = StyleSheet.create({
         alignItems:"center"
     },
     TextInput:{
+        borderColor: '#111111',
+        borderWidth: 2,
         width:  290,
         height: 40,
+        alignSelf: 'center',
         paddingLeft:10,
         borderRadius: 7,
         marginTop:  10,
-        backgroundColor: "#999999",
+        backgroundColor: "whitesmoke",
        },
        butButton:{
         backgroundColor: "black",
@@ -200,13 +246,23 @@ const styles = StyleSheet.create({
         marginTop: 5,
         justifyContent:'center',
    },
+   infousuario:{
+       display:"flex",
+       flexDirection:"row",
+       marginBottom:10,
+   },
+   titulo:{
+       fontWeight:"bold",
+       width:120
+   }
 })
 
+
 const ButtonPers = styled.TouchableOpacity`
-    width: 200px;
+    width: 300px;
     height:  40px;
     alignSelf: center;
-    borderRadius: 3px;
+    borderRadius: 5px;
     flexDirection:row;
     backgroundColor: ${props => props.color};
     justifyContent:center;

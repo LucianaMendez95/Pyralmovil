@@ -85,8 +85,8 @@ export default function Carrito(){
                         <Text style={styles.Textprecio}>${precioTotal()}</Text>
                     </View>} 
                     {listProduct.length > 0 && 
-                    <TouchableOpacity style={styles.butButton}>    
-                        <Text onPress={()=>checkout()} 
+                    <TouchableOpacity onPress={()=>checkout()} style={styles.butButton}>    
+                        <Text  
                             style={{color:'white',fontSize:20,fontWeight:'bold', textAlign:'center'}} >Buy</Text>
                     </TouchableOpacity>    }          
                  </View>
@@ -128,7 +128,7 @@ const styles = StyleSheet.create({
     cart:{
         position: 'absolute', 
         right:   10,
-        bottom: 690,
+        bottom: 675,
     },
     button:{
         color:'white',

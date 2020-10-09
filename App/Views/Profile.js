@@ -1,9 +1,13 @@
-import {StyleSheet, Text, View, Button, TextInput} from "react-native"
+import {StyleSheet, Text, View, Button, TextInput, TouchableOpacity} from "react-native"
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components'
 import {API} from '../Constants/index'
 import axios from 'axios'
 import Adress from "../Components/Adress";
+import { getValue, removeKey } from '../Constants/FuncAsyncStorage'
+import {Icon} from 'react-native-elements';
+
+
 
 
 
@@ -35,9 +39,46 @@ export default function Profile(props){
     const changeView = (truefalse) =>{
         setprofile (truefalse)
     }
+  
+  
 
-    
 
+        const CerrarSeccion = (props) => {
+            const log = () => {
+                removeKey('user')
+                props.setRender(!props.render)
+            }
+            
+            return(
+                <ButtonPers onPress={() => log()} tam={10} color={'#111111'} style={{marginBottom:20, marginTop:120, width:150,marginLeft:-110}}>
+                <Text style={{alignSelf:'center',fontSize:15, color:'whitesmoke', fontWeight:'bold'}} > Logout</Text>
+           </ButtonPers> 
+            )
+        }
+        
+        const CustomDrawerContent = (props) => {
+            const [user, setUser] = useState({})
+            const [render, setRender] = useState(true)
+            useEffect(() => {
+                getValue('user', true)        
+                .then(userP => {
+                    if(userP === null){
+                        setUser(userP)}
+                    else{
+                        setUser({...userP})}
+                })
+            },[render])
+            return(
+                <View style={styles.nombreymail}>
+                <View>
+                    <Text style={styles.nombre}>{user.firstName}  {user.lastName}</Text>
+                    <Text style={styles.mail}>{user.mail}</Text>
+                </View>
+                <CerrarSeccion render={render} setRender={setRender}/>
+                 
+            </View>
+            )}
+       
 
     return(
     <View style={styles.Todo}>
@@ -49,29 +90,11 @@ export default function Profile(props){
             </View>
         {profile
            ? <View style={styles.infoycambiarcontraseña}>
-                <Text style={styles.infotitulo}>Your info</Text>
-       
-                    <View style={styles.nombreymail}>
-                        <View>
-                            <Text style={styles.nombre}>Name and last name</Text>
-                            <Text style={styles.mail}>Mail</Text>
-                        </View>
-                        <ButtonPers style={[styles.Logout, {alignSelf:'center', width: 70, height:30, marginLeft:70, marginTop:10}]} tam={50} color={'#DBEBF0'}><Text style={{alignSelf:"center"}}>Logout</Text></ButtonPers>
-                    </View>
+                <Text style={styles.infotitulo}>Your info</Text>   
+                   
+                <CustomDrawerContent/>
+               
 
-                    <View style={styles.todoolvidarcontraseña} >
-                        <Text style={styles.infotitulo}>Forgot your password?</Text>
-                        <TextInput
-                            style={styles.TextInput}
-                            placeholder="Write your new password here"
-                            placeholderTextColor="#ffffffa9"
-                            onChangeText={(val)=> setPass(val)}
-                        />
-                        <ButtonPers tam={50} color={'#DBEBF0'} style={{alignSelf:'left', marginTop:10, width:150}}>
-                           <Text style={{alignSelf:'center'}} onPress={() => sendInfo} >Change Password</Text>
-                        </ButtonPers>                  
-                   </View>
-              
             </View>
 
         : <Adress paises={paises}/>}
@@ -116,7 +139,7 @@ const styles = StyleSheet.create({
     },
 
     nombreymail:{
-        marginLeft: 10,
+        marginLeft: 20,
         display:"flex",
         flexDirection:"row",
         justifyContent:"flex-start",
@@ -140,13 +163,24 @@ const styles = StyleSheet.create({
     marginTop:  10,
     backgroundColor: "#999999",
    },
+   TextInput:{
+    borderColor: '#111111',
+    borderWidth: 2,
+    width:  290,
+    height: 40,
+    alignSelf: 'center',
+    paddingLeft:10,
+    borderRadius: 7,
+    marginTop:  10,
+    backgroundColor: "whitesmoke",
+   },
 })
 
 const ButtonPers = styled.TouchableOpacity`
-    width: 200px;
+    width: 300px;
     height:  40px;
     alignSelf: center;
-    borderRadius: 10px;
+    borderRadius: 5px;
     flexDirection:row;
     backgroundColor: ${props => props.color};
     justifyContent:center;
