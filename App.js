@@ -16,8 +16,7 @@ export default function App() {
         cartAndListProducts()
     },[])
     return (<>
-        <Tab/>
-  
+        <Tab/>  
         <Carrito/>
     </>);
 }

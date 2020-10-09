@@ -1,17 +1,26 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import { EvilIcons, Entypo} from '@expo/vector-icons'; 
 import { View, Text, StyleSheet } from 'react-native';
 import {LOCAL_HOST, IMAGE} from '../Constants/index'
 import { MaterialIcons } from '@expo/vector-icons';
-import {UpdateCart} from '../Constants/funcionesCarrito'
+import {UpdateCart, removeTheCart} from '../Constants/funcionesCarrito'
 import styled from 'styled-components'
 
 
+const useForceUpdate = () => useState()[1];
+
 const ItemCarrito = (props) => {
+    
+    const forceUpdate = useForceUpdate();
     const updateQuantityProduct = (quantity) => {
         UpdateCart(props.product, quantity)
         props.setUpdate(!props.update)
     }
+    const removeProduct = (prod) => {
+        removeTheCart(prod)
+        props.setUpdate(!props.update)
+    }
+
     const url = props.product.photo.replace(LOCAL_HOST,IMAGE)
     return (
             <View style={styles.unelEmentoCarrito}>
@@ -20,14 +29,28 @@ const ItemCarrito = (props) => {
                     <Text style={styles.titulo}>{props.product.title}</Text> 
                     <Text style={{}}>{`Size ${props.product.size}`}</Text>
                     <View style={styles.cantidad}>
-                        <MaterialIcons style={{alignSelf:'center',color:'gray'}} name="remove" size={20} color="black" onPress={() => updateQuantityProduct(-1)}/>
+                        <MaterialIcons style={{alignSelf:'center',color:'gray'}} name="remove" 
+                            size={20} color="black" onPress={() => {
+                                updateQuantityProduct(-1)
+                                forceUpdate
+                            }}
+                        />
                         <Text style={{fontSize:18,alignSelf:'center'}}>{props.product.quantity}</Text>
-                        <Entypo name="plus" style={{alignSelf:'center', color:'gray' }} size={20} color="black" onPress={() => updateQuantityProduct(1)} />
+                        <Entypo name="plus" style={{alignSelf:'center', color:'gray' }} size={20} 
+                            color="black" onPress={() => {
+                                updateQuantityProduct(1)
+                                forceUpdate
+                            }} />
                     </View>
                 </View>
 
                 <View  style={styles.tachoyprecio}>
-                    <EvilIcons name="trash" size={35} color="black" />
+                    <EvilIcons name="trash" size={35} color="black" 
+                        onPress={() => {
+                            removeProduct(props.product)
+                            forceUpdate
+                        }}
+                    />
                     <Text style={styles.precio}>${props.product.price}</Text>
                 </View>
             </View>

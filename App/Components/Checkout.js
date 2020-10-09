@@ -3,7 +3,6 @@ import styled from "styled-components"
 import { View, Text, Button, StyleSheet, ScrollView } from 'react-native';
 import Adress from './Adress';
 import {LOCAL_HOST, IMAGE} from '../Constants/index'
-import { Icon } from 'react-native-elements'
 
 export default function Checkout(props) {
     const [paises, setpaises] = React.useState([])

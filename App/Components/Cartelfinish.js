@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import styled from "styled-components"
 import { View, Text, Button, StyleSheet, ScrollView } from 'react-native';
 import Adress from './Adress';
-import { AntDesign } from '@expo/vector-icons'; 
+import { AntDesign } from '@expo/vector-icons';
 
 
 export default function Cartelfinish() {

@@ -4,7 +4,6 @@ import { StatusBar, StyleSheet, Text } from "react-native";
 import {Icon} from 'react-native-elements';
 
 export default function Header(props) {
-    console.log(props)
     return (
         <Container>
             <Icon containerStyle={{alignSelf:'center'}}  name={'bars'} onPress={() => props.navigation.openDrawer()} type='font-awesome' size={30} color="#111111"/>

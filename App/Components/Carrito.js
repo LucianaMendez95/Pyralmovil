@@ -9,8 +9,12 @@ import { ScrollView, TouchableOpacity } from 'react-native-gesture-handler';
 import Checkout from './Checkout';
 import Payment from './Payment'
 import Cartelfinish from './Cartelfinish'
+import {removeKey} from '../Constants/FuncAsyncStorage'
+
+const useForceUpdate = () => useState()[1];
 
 export default function Carrito(){
+    const forceUpdate = useForceUpdate();
     const [visible, setVisible] = useState(false);
     const [update, setUpdate] = useState(true)
     
@@ -39,13 +43,10 @@ export default function Carrito(){
     const cartel =()=>{
         setcartell(!cartell);
     }
-    
- 
     const [listProduct, setListProduct ] = useState([])
     useEffect(() => {
         getValue('cart',true)
         .then(products => {
-            console.log(products)
             setListProduct(products)
         })
     },[update])
@@ -57,10 +58,6 @@ export default function Carrito(){
         })
         return `${precioTotal}`
        }      
-
- 
-
-
 
     return (<>
         <View >
@@ -77,7 +74,8 @@ export default function Carrito(){
               ?  <View style={[styles.ropaDelCarrito, listProduct.length === 0 && {height:30} ]}>
 
                     <ScrollView alignSelf='center' style={{marginTop:50}}>
-                       {listProduct.map((prod,index) =><ItemCarrito product={prod} key={index}/>)}
+                        {listProduct.map((prod,index) =><ItemCarrito product={prod} key={index} update={update} 
+                            setUpdate={setUpdate} yo ={forceUpdate} />)}
                     </ScrollView >
                     {listProduct.length > 0 && 
                     <View style={styles.totalPrecio}>
@@ -114,7 +112,11 @@ export default function Carrito(){
                             ? <Text onPress={cartel} style={styles.button}>Finish</Text>
                             :<></>}
                     </View>
-                    :<Text onPress={toggleOverlay} style={styles.button}>Close</Text>}
+                        :<Text onPress={() => {
+                            removeKey('cart')
+                            toggleOverlay()
+                        }} style={styles.button}
+                        >Close</Text>}
                 </View>
 
              </View>} 

@@ -1,10 +1,7 @@
 import React, {useState, useEffect} from 'react';
-import { Text, View,Button, Image ,TouchableOpacity} from 'react-native';
+import { Text, View,TouchableOpacity} from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { createDrawerNavigator ,
-    DrawerContentScrollView,
-    DrawerItemList,
-    DrawerItem, } from "@react-navigation/drawer";
+import { createDrawerNavigator } from "@react-navigation/drawer";
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from "@react-navigation/stack";
 import Home from '../Views/Home'
@@ -18,9 +15,22 @@ import FAQs from '../Views/FAQs';
 import About from '../Views/About';
 import styled from 'styled-components'
 import {Icon} from 'react-native-elements';
-import Carrito from '../Components/Carrito'
 import { getValue, removeKey } from '../Constants/FuncAsyncStorage'
 import Header from '../Components/Header';
+import Toast from 'react-native-tiny-toast'
+const imagenOferta = 'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcT3IDDLHd5gXFm1_BziIeSNDyTxUwnDPV-IgQ&usqp=CAU'
+
+const toast = () =>  {
+    return(
+        Toast.show("Coming Soon",{
+        position: Toast.position.center,
+        containerStyle:{backgroundColor:'grey',marginBottom:'50%'},
+        textStyle: {color:'#111111'},
+        mask: true,
+        maskStyle:{},
+    }))
+}
+
 
 const Container = styled.View`
     flex: 1;
@@ -35,6 +45,13 @@ const ImageShop = styled.Image`
     borderRadius: 5px;
     marginBottom: ${props => `${props.margin}px`};
 `;
+
+const Ofertas = styled.ImageBackground`
+    marginTop:30px;
+    alignSelf:center;
+    width:90%;
+    borderRadius:100px;
+`
 
 
 const Drawer = createDrawerNavigator()
@@ -53,6 +70,9 @@ const HomeStackScreen = (props) => (
         <ShopStack.Screen name="Products" component={Products} 
             options={{ headerTitle: () => <Header {...props} title={'SHOP'}/>}}
         />
+        <ShopStack.Screen name="OneProduct" component={OneProduct} 
+            options={{ headerTitle: () => <Header {...props} title={'SHOP'}/>}}
+        />    
     </HomeStack.Navigator>
 );
 
@@ -144,7 +164,7 @@ const CustomDrawerContent = (props) => {
                     <Text style={{alignSelf:'center',color:'black' ,fontSize:25,fontWeight:'bold'}}>{user === null?  "GUEST":user.mail}</Text>
                 </View>
                     <View  style={user !== null? {flex:0.2,justifyContent:'space-between'}:
-                        {flex:0.3,justifyContent:'space-between'}}>            
+                        {flex:0.4,justifyContent:'space-between'}}>            
                     <DrawerButton title={"Home"} url={"Home"} icono={"home"} navigate={props.navigation.navigate}/>
                     { user === null && <DrawerButton title={"LogIn"} url={"LogIn"} 
                         render={render} setRender={setRender} icono={"sign-in"}  navigate={props.navigation.navigate}/>}
@@ -152,7 +172,14 @@ const CustomDrawerContent = (props) => {
                         render={render} setRender={setRender} icono={"user-plus"} navigate={props.navigation.navigate}/>}
                     {user !== null && <DrawerButton title={"Profile"} url={"Profile"} 
                             icono={"user"} navigate={props.navigation.navigate}/>}
-            </View>       
+                </View>
+                    <TouchableOpacity onPress={() => toast()}>
+                    <Ofertas source={{uri:imagenOferta}} imageStyle={{borderRadius:5}}>
+                        <Text style={{color:'white',alignSelf:'center',fontSize:35, fontWeight:'bold'}}>
+                            new collection
+                        </Text>
+                    </Ofertas>
+                </TouchableOpacity>
             </View>
             <View style={{width:'100%',justifyContent:'center', 
                 flex:0.15, backgroundColor:'whitesmoke', borderTopEndRadius:40, borderTopLeftRadius:40}}>
