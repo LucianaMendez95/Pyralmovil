@@ -4,7 +4,9 @@ import Tab from './App/Nagivator/TabV'
 import Carrito from './App/Components/Carrito'
 import {getValue, seveKeyValue} from './App/Constants/FuncAsyncStorage'
 
+
 const cartAndListProducts = () => {
+    
     getValue('cart',true) 
     .then(value => {
         seveKeyValue('cart',[],true)
